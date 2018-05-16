@@ -13,6 +13,8 @@ public class PgBonusCalcolati {
 	String ModificatoreSaggezzaDescrizione = "";
 	int ModificatoreCarisma = 0;
 	String ModificatoreCarismaDescrizione = "";
+	int ModificatorePuntiFerita = 0;
+	String ModificatorePuntiFeritaDescrizione = "";
 	int ModificatoreClasseArmatura = 0;
 	String ModificatoreClasseArmaturaDescrizione = "";
 	int ModificatoreBabMischia = 0;
@@ -31,6 +33,8 @@ public class PgBonusCalcolati {
 	String ModificatoreIniziativaTalentiDescrizione = "";
 	int ModificatoreIniziativaAltro = 0;
 	String ModificatoreIniziativaAltroDescrizione = "";
+	int ModificatoreDanno = 0;
+	String ModificatoreDannoDescrizione = "";
 	int ModificatoreAbilita = 0;
 	String ModificatoreAbilitaDescrizione = "";
 
@@ -105,6 +109,19 @@ public class PgBonusCalcolati {
 	}
 	public void setModificatoreCarismaDescrizione(String modificatoreCarismaDescrizione) {
 		ModificatoreCarismaDescrizione = modificatoreCarismaDescrizione;
+	}
+	
+	public int getModificatorePuntiFerita() {
+		return ModificatorePuntiFerita;
+	}
+	public void setModificatorePuntiFerita(int modificatorePuntiFerita) {
+		ModificatorePuntiFerita = modificatorePuntiFerita;
+	}
+	public String getModificatorePuntiFeritaDescrizione() {
+		return ModificatorePuntiFeritaDescrizione;
+	}
+	public void setModificatorePuntiFeritaDescrizione(String modificatorePuntiFeritaDescrizione) {
+		ModificatorePuntiFeritaDescrizione = modificatorePuntiFeritaDescrizione;
 	}
 	public int getModificatoreClasseArmatura() {
 		return ModificatoreClasseArmatura;
@@ -216,6 +233,18 @@ public class PgBonusCalcolati {
 	public void setModificatoreIniziativaAltroDescrizione(
 			String modificatoreIniziativaAltroDescrizione) {
 		ModificatoreIniziativaAltroDescrizione = modificatoreIniziativaAltroDescrizione;
+	}
+	public int getModificatoreDanno() {
+		return ModificatoreDanno;
+	}
+	public void setModificatoreDanno(int modificatoreDanno) {
+		ModificatoreDanno = modificatoreDanno;
+	}
+	public String getModificatoreDannoDescrizione() {
+		return ModificatoreDannoDescrizione;
+	}
+	public void setModificatoreDannoDescrizione(String modificatoreDannoDescrizione) {
+		ModificatoreDannoDescrizione = modificatoreDannoDescrizione;
 	}
 	public int getModificatoreAbilita() {
 		return ModificatoreAbilita;

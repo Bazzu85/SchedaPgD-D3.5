@@ -48,14 +48,20 @@ public class CalcolaDati {
 
 	private PgDatiObj calcolaPuntiFerita(PgDatiObj pgDatiObj) {
 
+		PgBonusCalcolati pgBonusCalcolati = pgDatiObj.getPgBonusCalcolati();
+
 		// Calcolo punti ferita totali
-		PgPuntiFeritaObj pgPuntiFeritaObj = new PgPuntiFeritaObj();
-		pgPuntiFeritaObj = pgDatiObj.getPgPuntiFeritaObj();
+		PgPuntiFeritaObj pgPuntiFeritaObj = pgDatiObj.getPgPuntiFeritaObj();
 		int puntiFeritaTotali = 0;
 		for (int i = 0; i < pgDatiObj.getArrayClassi().size(); i++) {
 			if (pgDatiObj.getArrayClassi().get(i).getPuntiFerita() > 0) {
 				puntiFeritaTotali = puntiFeritaTotali + pgDatiObj.getArrayClassi().get(i).getPuntiFerita();
 			}
+		}
+		
+		// Se ci sono bonus ai punti ferita aggiungi
+		if (pgBonusCalcolati.getModificatorePuntiFerita() != 0){
+			puntiFeritaTotali = puntiFeritaTotali + pgBonusCalcolati.getModificatorePuntiFerita();
 		}
 		pgPuntiFeritaObj.setPuntiFeritaTotali(puntiFeritaTotali);
 

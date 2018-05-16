@@ -24,6 +24,7 @@ import ENUM.ListaPgPuntiFerita;
 import gui.MainWindow;
 import obj.OpzioniObj;
 import obj.PgDatiObj;
+import obj.PgPuntiFeritaObj;
 
 public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionListener {
 
@@ -65,6 +66,8 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 	private MainWindow frame;
 	private JButton btnCuraDanno;
 	private JButton btnCuraDanniNonLetali;
+	private JLabel lblPuntiFeritaRimanenti;
+	private JFormattedTextField formattedTextFieldPuntiFeritaRimanenti;
 
 	public PgPuntiFeritaPanel(PgDatiObj pgDatiObj) {
 
@@ -75,9 +78,9 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 
 		GridBagLayout gbl_panelPuntiFerita = new GridBagLayout();
 		gbl_panelPuntiFerita.columnWidths = new int[] { 0, 0, 106, 0, 127, 0 };
-		gbl_panelPuntiFerita.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0 };
+		gbl_panelPuntiFerita.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0 };
 		gbl_panelPuntiFerita.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelPuntiFerita.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+		gbl_panelPuntiFerita.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		this.setLayout(gbl_panelPuntiFerita);
 		lblPuntiFeritaTotali = new JLabel("Punti Ferita Totali");
@@ -115,19 +118,37 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_textFieldStatoPg.gridy = 1;
 		this.add(textFieldStatoPg, gbc_textFieldStatoPg);
 		textFieldStatoPg.setColumns(10);
+
+		lblPuntiFeritaRimanenti = new JLabel("Punti Ferita Rimanenti");
+		lblPuntiFeritaRimanenti.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblPuntiFeritaRimanenti = new GridBagConstraints();
+		gbc_lblPuntiFeritaRimanenti.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPuntiFeritaRimanenti.gridx = 0;
+		gbc_lblPuntiFeritaRimanenti.gridy = 2;
+		add(lblPuntiFeritaRimanenti, gbc_lblPuntiFeritaRimanenti);
+
+		formattedTextFieldPuntiFeritaRimanenti = new JFormattedTextField(soloNumeri);
+		formattedTextFieldPuntiFeritaRimanenti.setEnabled(false);
+		formattedTextFieldPuntiFeritaRimanenti.setEditable(false);
+		GridBagConstraints gbc_formattedTextFieldPuntiFeritaRimanenti = new GridBagConstraints();
+		gbc_formattedTextFieldPuntiFeritaRimanenti.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextFieldPuntiFeritaRimanenti.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextFieldPuntiFeritaRimanenti.gridx = 0;
+		gbc_formattedTextFieldPuntiFeritaRimanenti.gridy = 3;
+		add(formattedTextFieldPuntiFeritaRimanenti, gbc_formattedTextFieldPuntiFeritaRimanenti);
 		lblFeriteAttuali = new JLabel("Ferite Attuali");
 		lblFeriteAttuali.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblPuntiFeritaAttuali = new GridBagConstraints();
 		gbc_lblPuntiFeritaAttuali.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPuntiFeritaAttuali.gridx = 0;
-		gbc_lblPuntiFeritaAttuali.gridy = 2;
+		gbc_lblPuntiFeritaAttuali.gridy = 4;
 		this.add(lblFeriteAttuali, gbc_lblPuntiFeritaAttuali);
 		lblFerite = new JLabel("Ferite");
 		lblFerite.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblFerite = new GridBagConstraints();
 		gbc_lblFerite.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFerite.gridx = 1;
-		gbc_lblFerite.gridy = 2;
+		gbc_lblFerite.gridy = 4;
 		this.add(lblFerite, gbc_lblFerite);
 		formattedTextFieldFeriteAttuali = new JFormattedTextField(soloNumeri);
 		formattedTextFieldFeriteAttuali.setEnabled(false);
@@ -136,7 +157,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_formattedTextFieldPuntiFeritaAttuali.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldPuntiFeritaAttuali.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formattedTextFieldPuntiFeritaAttuali.gridx = 0;
-		gbc_formattedTextFieldPuntiFeritaAttuali.gridy = 3;
+		gbc_formattedTextFieldPuntiFeritaAttuali.gridy = 5;
 		this.add(formattedTextFieldFeriteAttuali, gbc_formattedTextFieldPuntiFeritaAttuali);
 		formattedTextFieldFerite = new JFormattedTextField(soloNumeri);
 		formattedTextFieldFerite.addFocusListener(this);
@@ -144,34 +165,34 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_formattedTextFieldFerite.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldFerite.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formattedTextFieldFerite.gridx = 1;
-		gbc_formattedTextFieldFerite.gridy = 3;
+		gbc_formattedTextFieldFerite.gridy = 5;
 		this.add(formattedTextFieldFerite, gbc_formattedTextFieldFerite);
-		
+
 		btnAggiungiDanno = new JButton("Aggiungi Danno");
 		btnAggiungiDanno.addActionListener(this);
 		GridBagConstraints gbc_btnAggiungiDanno = new GridBagConstraints();
 		gbc_btnAggiungiDanno.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAggiungiDanno.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAggiungiDanno.gridx = 2;
-		gbc_btnAggiungiDanno.gridy = 3;
+		gbc_btnAggiungiDanno.gridy = 5;
 		this.add(btnAggiungiDanno, gbc_btnAggiungiDanno);
 
 		btnResetDanni = new JButton("Reset Danni");
 		btnResetDanni.addActionListener(this);
-		
+
 		btnCuraDanno = new JButton("Cura Danno");
 		btnCuraDanno.addActionListener(this);
 		GridBagConstraints gbc_btnCuraDanno = new GridBagConstraints();
 		gbc_btnCuraDanno.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCuraDanno.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCuraDanno.gridx = 3;
-		gbc_btnCuraDanno.gridy = 3;
+		gbc_btnCuraDanno.gridy = 5;
 		add(btnCuraDanno, gbc_btnCuraDanno);
 		GridBagConstraints gbc_btnResetDanni = new GridBagConstraints();
 		gbc_btnResetDanni.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnResetDanni.insets = new Insets(0, 0, 5, 0);
 		gbc_btnResetDanni.gridx = 4;
-		gbc_btnResetDanni.gridy = 3;
+		gbc_btnResetDanni.gridy = 5;
 		this.add(btnResetDanni, gbc_btnResetDanni);
 
 		lblDanniNonLetaliAttuali = new JLabel("Danni Non Letali Attuali");
@@ -179,7 +200,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		GridBagConstraints gbc_lblDanniNonLetaliAttuali = new GridBagConstraints();
 		gbc_lblDanniNonLetaliAttuali.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDanniNonLetaliAttuali.gridx = 0;
-		gbc_lblDanniNonLetaliAttuali.gridy = 4;
+		gbc_lblDanniNonLetaliAttuali.gridy = 6;
 		this.add(lblDanniNonLetaliAttuali, gbc_lblDanniNonLetaliAttuali);
 
 		formattedTextFieldDanniNonLetaliAttuali = new JFormattedTextField(soloNumeri);
@@ -189,7 +210,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_formattedTextFieldDanniNonLetaliAttuali.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldDanniNonLetaliAttuali.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formattedTextFieldDanniNonLetaliAttuali.gridx = 0;
-		gbc_formattedTextFieldDanniNonLetaliAttuali.gridy = 5;
+		gbc_formattedTextFieldDanniNonLetaliAttuali.gridy = 7;
 		this.add(formattedTextFieldDanniNonLetaliAttuali, gbc_formattedTextFieldDanniNonLetaliAttuali);
 		formattedTextFieldDanniNonLetali = new JFormattedTextField(soloNumeri);
 		formattedTextFieldDanniNonLetali.addFocusListener(this);
@@ -197,7 +218,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_formattedTextFieldDanniNonLetali.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldDanniNonLetali.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formattedTextFieldDanniNonLetali.gridx = 1;
-		gbc_formattedTextFieldDanniNonLetali.gridy = 5;
+		gbc_formattedTextFieldDanniNonLetali.gridy = 7;
 		this.add(formattedTextFieldDanniNonLetali, gbc_formattedTextFieldDanniNonLetali);
 		formattedTextFieldDanniNonLetali.setColumns(10);
 
@@ -206,30 +227,30 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		GridBagConstraints gbc_btnAggiungiDannoNon = new GridBagConstraints();
 		gbc_btnAggiungiDannoNon.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAggiungiDannoNon.gridx = 2;
-		gbc_btnAggiungiDannoNon.gridy = 5;
+		gbc_btnAggiungiDannoNon.gridy = 7;
 		this.add(btnAggiungiDannoNonLetale, gbc_btnAggiungiDannoNon);
 
 		btnResetDanniNonLetali = new JButton("Reset Danni Non Letali");
 		btnResetDanniNonLetali.addActionListener(this);
-		
+
 		btnCuraDanniNonLetali = new JButton("Cura Danni Non Letali");
 		btnCuraDanniNonLetali.addActionListener(this);
 		GridBagConstraints gbc_btnCuraDanniNon = new GridBagConstraints();
 		gbc_btnCuraDanniNon.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCuraDanniNon.gridx = 3;
-		gbc_btnCuraDanniNon.gridy = 5;
+		gbc_btnCuraDanniNon.gridy = 7;
 		add(btnCuraDanniNonLetali, gbc_btnCuraDanniNon);
 		GridBagConstraints gbc_btnResetDanniNon = new GridBagConstraints();
 		gbc_btnResetDanniNon.insets = new Insets(0, 0, 5, 0);
 		gbc_btnResetDanniNon.gridx = 4;
-		gbc_btnResetDanniNon.gridy = 5;
+		gbc_btnResetDanniNon.gridy = 7;
 		this.add(btnResetDanniNonLetali, gbc_btnResetDanniNon);
 		lblRiduzioneDelDanno = new JLabel("Riduzione del Danno");
 		lblRiduzioneDelDanno.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblRiduzioneDelDanno = new GridBagConstraints();
 		gbc_lblRiduzioneDelDanno.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRiduzioneDelDanno.gridx = 0;
-		gbc_lblRiduzioneDelDanno.gridy = 6;
+		gbc_lblRiduzioneDelDanno.gridy = 8;
 		this.add(lblRiduzioneDelDanno, gbc_lblRiduzioneDelDanno);
 		textFieldRiduzioneDelDanno = new JTextField();
 		textFieldRiduzioneDelDanno.addFocusListener(this);
@@ -238,17 +259,17 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 		gbc_textFieldRiduzioneDelDanno.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldRiduzioneDelDanno.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldRiduzioneDelDanno.gridx = 1;
-		gbc_textFieldRiduzioneDelDanno.gridy = 6;
+		gbc_textFieldRiduzioneDelDanno.gridy = 8;
 		this.add(textFieldRiduzioneDelDanno, gbc_textFieldRiduzioneDelDanno);
 		textFieldRiduzioneDelDanno.setColumns(10);
 
 		panelResistenze = new JPanel();
 		GridBagConstraints gbc_panelResistenze = new GridBagConstraints();
-		gbc_panelResistenze.insets = new Insets(0, 0, 5, 0);
+		gbc_panelResistenze.insets = new Insets(0, 0, 5, 5);
 		gbc_panelResistenze.gridwidth = 4;
 		gbc_panelResistenze.fill = GridBagConstraints.BOTH;
 		gbc_panelResistenze.gridx = 0;
-		gbc_panelResistenze.gridy = 8;
+		gbc_panelResistenze.gridy = 10;
 		this.add(panelResistenze, gbc_panelResistenze);
 		GridBagLayout gbl_panelResistenze = new GridBagLayout();
 		gbl_panelResistenze.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
@@ -308,49 +329,51 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 	}
 
 	public void popolaPanel(PgDatiObj pgDatiObj, OpzioniObj opzioniObj) {
-		
+
 		// Salvataggio dell'oggetto nella classe per giri successivi (chiamati
 		// da altri panels)
 		this.pgDatiObj = pgDatiObj;
 		this.opzioniObj = opzioniObj;
-		
+
 		// TODO Popolamento scheda "Punti Ferita"
 
-		if (pgDatiObj.getPgPuntiFeritaObj().getPuntiFeritaTotali() > 0) {
-			formattedTextFieldPuntiFeritaTotali.setValue(pgDatiObj.getPgPuntiFeritaObj().getPuntiFeritaTotali());
+		PgPuntiFeritaObj pgPuntiFeritaObj = pgDatiObj.getPgPuntiFeritaObj();
+
+		if (pgPuntiFeritaObj.getPuntiFeritaTotali() > 0) {
+			formattedTextFieldPuntiFeritaTotali.setValue(pgPuntiFeritaObj.getPuntiFeritaTotali());
 		} else {
 			formattedTextFieldPuntiFeritaTotali.setValue(0);
 		}
-		textFieldStatoPg.setText(pgDatiObj.getPgPuntiFeritaObj().getStatoPg());
+		textFieldStatoPg.setText(pgPuntiFeritaObj.getStatoPg());
 
-		if (pgDatiObj.getPgPuntiFeritaObj().getFeriteAttuali() != 0) {
-			formattedTextFieldFeriteAttuali.setValue(pgDatiObj.getPgPuntiFeritaObj().getFeriteAttuali());
+		formattedTextFieldPuntiFeritaRimanenti.setValue(pgPuntiFeritaObj.getPuntiFeritaRimanenti());
+
+		if (pgPuntiFeritaObj.getFeriteAttuali() != 0) {
+			formattedTextFieldFeriteAttuali.setValue(pgPuntiFeritaObj.getFeriteAttuali());
 		} else {
 			formattedTextFieldFeriteAttuali.setValue(0);
 		}
-		if (pgDatiObj.getPgPuntiFeritaObj().getFerite() != 0) {
-			formattedTextFieldFerite.setValue(pgDatiObj.getPgPuntiFeritaObj().getFerite());
+		if (pgPuntiFeritaObj.getFerite() != 0) {
+			formattedTextFieldFerite.setValue(pgPuntiFeritaObj.getFerite());
 		} else {
 			formattedTextFieldFerite.setValue(0);
 		}
-		if (pgDatiObj.getPgPuntiFeritaObj().getDanniNonLetaliAttuali() != 0) {
-			formattedTextFieldDanniNonLetaliAttuali
-					.setValue(pgDatiObj.getPgPuntiFeritaObj().getDanniNonLetaliAttuali());
+		if (pgPuntiFeritaObj.getDanniNonLetaliAttuali() != 0) {
+			formattedTextFieldDanniNonLetaliAttuali.setValue(pgPuntiFeritaObj.getDanniNonLetaliAttuali());
 		} else {
 			formattedTextFieldDanniNonLetaliAttuali.setValue(0);
 		}
-		if (pgDatiObj.getPgPuntiFeritaObj().getDanniNonLetali() != 0) {
-			formattedTextFieldDanniNonLetali.setValue(pgDatiObj.getPgPuntiFeritaObj().getDanniNonLetali());
+		if (pgPuntiFeritaObj.getDanniNonLetali() != 0) {
+			formattedTextFieldDanniNonLetali.setValue(pgPuntiFeritaObj.getDanniNonLetali());
 		} else {
 			formattedTextFieldDanniNonLetali.setValue(0);
 		}
-		textFieldRiduzioneDelDanno.setText(pgDatiObj.getPgPuntiFeritaObj().getRiduzioneDelDanno());
-		textFieldResistenze1.setText(pgDatiObj.getPgPuntiFeritaObj().getResistenze1());
-		textFieldResistenze2.setText(pgDatiObj.getPgPuntiFeritaObj().getResistenze2());
-		textFieldResistenze3.setText(pgDatiObj.getPgPuntiFeritaObj().getResistenze3());
-		textFieldResistenze4.setText(pgDatiObj.getPgPuntiFeritaObj().getResistenze4());
-		textFieldResistenze5.setText(pgDatiObj.getPgPuntiFeritaObj().getResistenze5());
-
+		textFieldRiduzioneDelDanno.setText(pgPuntiFeritaObj.getRiduzioneDelDanno());
+		textFieldResistenze1.setText(pgPuntiFeritaObj.getResistenze1());
+		textFieldResistenze2.setText(pgPuntiFeritaObj.getResistenze2());
+		textFieldResistenze3.setText(pgPuntiFeritaObj.getResistenze3());
+		textFieldResistenze4.setText(pgPuntiFeritaObj.getResistenze4());
+		textFieldResistenze5.setText(pgPuntiFeritaObj.getResistenze5());
 
 	}
 
@@ -429,6 +452,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 				frame.popolaFrame(pgDatiObj);
 			}
 			if (((JButton) oggetto).getActionCommand() == btnResetDanni.getActionCommand()) {
+				pgDatiObj = aggiornaOggetti.aggiornaPuntiFerita(pgDatiObj, ListaPgPuntiFerita.FERITE, "0");
 				pgDatiObj = aggiornaOggetti.aggiornaPuntiFerita(pgDatiObj, ListaPgPuntiFerita.FERITE_ATTUALI, "0");
 				frame.popolaFrame(pgDatiObj);
 			}
@@ -443,6 +467,7 @@ public class PgPuntiFeritaPanel extends JPanel implements FocusListener, ActionL
 				frame.popolaFrame(pgDatiObj);
 			}
 			if (((JButton) oggetto).getActionCommand() == btnResetDanniNonLetali.getActionCommand()) {
+				pgDatiObj = aggiornaOggetti.aggiornaPuntiFerita(pgDatiObj, ListaPgPuntiFerita.DANNI_NON_LETALI, "0");
 				pgDatiObj = aggiornaOggetti.aggiornaPuntiFerita(pgDatiObj, ListaPgPuntiFerita.DANNI_NON_LETALI_ATTUALI,
 						"0");
 				frame.popolaFrame(pgDatiObj);

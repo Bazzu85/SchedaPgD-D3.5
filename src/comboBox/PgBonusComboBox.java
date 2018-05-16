@@ -16,8 +16,7 @@ public class PgBonusComboBox {
 		comboBoxBonus.setSelectedIndex(0);
 
 		// Recuperiamo la lista delle armi
-		ArrayList<String> arrayBonusLabel = new ArrayList<String>();
-		arrayBonusLabel = GestioneBonusCalcolati.getArray();
+		ArrayList<String> arrayBonusLabel = GestioneBonusCalcolati.getArray();
 		for (int i=0; i< arrayBonusLabel.size(); i++){
 			comboBoxBonus.addItem(arrayBonusLabel.get(i));
 		}

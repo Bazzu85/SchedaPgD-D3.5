@@ -7,6 +7,7 @@ import obj.DbArmiObj;
 import obj.PgArmiObj;
 import obj.PgArmiRiepilogoObj;
 import obj.PgBabObj;
+import obj.PgBonusCalcolati;
 import obj.PgDatiObj;
 
 public class CalcolaDatiArmi {
@@ -18,6 +19,9 @@ public class CalcolaDatiArmi {
 
 		// Recupero dei dati del BAB
 		PgBabObj pgBabObj = pgDatiObj.getPgBabObj();
+
+		// Recupero dei dati dei bonus utente
+		PgBonusCalcolati pgBonusCalcolati = pgDatiObj.getPgBonusCalcolati();
 
 		// Recupero array armi
 		ArrayList<PgArmiObj> arrayPgArmi = pgDatiObj.getArrayArmi();
@@ -39,7 +43,7 @@ public class CalcolaDatiArmi {
 
 			// Se l'arma è equipaggiata calcoliamo l'oggetto pgArmiRiepilogoObj
 			if (pgArmiObj.isEquipaggiata()) {
-				PgArmiRiepilogoObj pgArmiRiepilogoObj = calcolaPgArmiRiepilogo(pgArmiObj, pgBabObj);
+				PgArmiRiepilogoObj pgArmiRiepilogoObj = calcolaPgArmiRiepilogo(pgArmiObj, pgBabObj, pgBonusCalcolati);
 				arrayPgArmiRiepilogo.add(pgArmiRiepilogoObj);
 			}
 		}
@@ -49,7 +53,7 @@ public class CalcolaDatiArmi {
 
 	}
 
-	private PgArmiRiepilogoObj calcolaPgArmiRiepilogo(PgArmiObj pgArmiObj, PgBabObj pgBabObj) {
+	private PgArmiRiepilogoObj calcolaPgArmiRiepilogo(PgArmiObj pgArmiObj, PgBabObj pgBabObj, PgBonusCalcolati pgBonusCalcolati) {
 
 		PgArmiRiepilogoObj pgArmiRiepilogoObj = new PgArmiRiepilogoObj();
 
@@ -97,7 +101,7 @@ public class CalcolaDatiArmi {
 		pgArmiRiepilogoObj.setBatDoppioAttacco(batDoppioAttacco);
 
 		// Calcolo danno totale
-		String dannoTotale = calcolaDannoTotale(pgArmiObj, dbArmiObj, pgBabObj);
+		String dannoTotale = calcolaDannoTotale(pgArmiObj, dbArmiObj, pgBabObj, pgBonusCalcolati);
 		pgArmiRiepilogoObj.setDannoTotale(dannoTotale);
 
 		// Valorizzazione incremento gittata
@@ -205,7 +209,7 @@ public class CalcolaDatiArmi {
 		return babTotale;
 	}
 
-	private String calcolaDannoTotale(PgArmiObj pgArmiObj, DbArmiObj dbArmiObj, PgBabObj pgBabObj) {
+	private String calcolaDannoTotale(PgArmiObj pgArmiObj, DbArmiObj dbArmiObj, PgBabObj pgBabObj, PgBonusCalcolati pgBonusCalcolati) {
 
 		String dannoTotale = "";
 		// impostiamo il danno base dell'arma sulla base della taglia
@@ -239,6 +243,11 @@ public class CalcolaDatiArmi {
 			bonusDannoTotale = bonusDannoTotale + pgArmiObj.getMod() + pgArmiObj.getModDanno();
 		}
 
+		// Aggiunta bonus inseriti dall'utente
+		if (pgBonusCalcolati.getModificatoreDanno() != 0){
+			bonusDannoTotale = bonusDannoTotale + pgBonusCalcolati.getModificatoreDanno();
+		}
+		
 		if (bonusDannoTotale != 0) {
 			if (bonusDannoTotale > 0) {
 				dannoTotale = dannoTotale + "+" + bonusDannoTotale;

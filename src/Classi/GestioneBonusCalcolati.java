@@ -165,6 +165,31 @@ public class GestioneBonusCalcolati {
 					}
 				}
 				break;
+			case "Modificatore Punti Ferita":
+				// Se il bonus è abilitato
+				if (arrayPgBonus.get(i).isBonusAbilitato()) {
+					// Impostiamo il modificatore
+					pgBonusCalcolati.setModificatorePuntiFerita(
+							pgBonusCalcolati.getModificatorePuntiFerita() + arrayPgBonus.get(i).getModificatore());
+					if (arrayPgBonus.get(i).getModificatore() > 0) {
+						modConSegno = "+" + arrayPgBonus.get(i).getModificatore();
+					} else {
+						modConSegno = "" + arrayPgBonus.get(i).getModificatore();
+					}
+					// Impostiamo la descrizione
+					if (!arrayPgBonus.get(i).getDescrizione().trim().isEmpty()) {
+						if (pgBonusCalcolati.getModificatorePuntiFeritaDescrizione().trim().isEmpty()) {
+							pgBonusCalcolati.setModificatorePuntiFeritaDescrizione(
+									pgBonusCalcolati.getModificatorePuntiFeritaDescrizione()
+											+ arrayPgBonus.get(i).getDescrizione() + " (" + modConSegno + ")");
+						} else {
+							pgBonusCalcolati.setModificatorePuntiFeritaDescrizione(
+									pgBonusCalcolati.getModificatorePuntiFeritaDescrizione() + " + "
+											+ arrayPgBonus.get(i).getDescrizione() + " (" + modConSegno + ")");
+						}
+					}
+				}
+				break;
 			case "Modificatore Classe Armatura":
 				// Se il bonus è abilitato
 				if (arrayPgBonus.get(i).isBonusAbilitato()) {
@@ -384,6 +409,30 @@ public class GestioneBonusCalcolati {
 					}
 				}
 				break;
+			case "Modificatore al danno (tutte le armi)":
+				// Se il bonus è abilitato
+				if (arrayPgBonus.get(i).isBonusAbilitato()) {
+					// Impostiamo il modificatore
+					pgBonusCalcolati.setModificatoreDanno(pgBonusCalcolati.getModificatoreDanno() + arrayPgBonus.get(i).getModificatore());
+					if (arrayPgBonus.get(i).getModificatore() > 0) {
+						modConSegno = "+" + arrayPgBonus.get(i).getModificatore();
+					} else {
+						modConSegno = "" + arrayPgBonus.get(i).getModificatore();
+					}
+					// Impostiamo la descrizione
+					if (!arrayPgBonus.get(i).getDescrizione().trim().isEmpty()) {
+						if (pgBonusCalcolati.getModificatoreDannoDescrizione().trim().isEmpty()) {
+							pgBonusCalcolati.setModificatoreDannoDescrizione(
+									pgBonusCalcolati.getModificatoreDannoDescrizione()
+											+ arrayPgBonus.get(i).getDescrizione() + " (" + modConSegno + ")");
+						} else {
+							pgBonusCalcolati.setModificatoreDannoDescrizione(
+									pgBonusCalcolati.getModificatoreDannoDescrizione() + " + "
+											+ arrayPgBonus.get(i).getDescrizione() + " (" + modConSegno + ")");
+						}
+					}
+				}
+				break;
 			case "Modificatore Abilità":
 				// Se il bonus è abilitato
 				if (arrayPgBonus.get(i).isBonusAbilitato()) {
@@ -423,6 +472,7 @@ public class GestioneBonusCalcolati {
 		arrayBonusLabel.add("Modificatore Intelligenza");
 		arrayBonusLabel.add("Modificatore Saggezza");
 		arrayBonusLabel.add("Modificatore Carisma");
+		arrayBonusLabel.add("Modificatore Punti Ferita");
 		arrayBonusLabel.add("Modificatore Classe Armatura");
 		arrayBonusLabel.add("Modificatore Bab Mischia");
 		arrayBonusLabel.add("Modificatore Bab Distanza");
@@ -432,6 +482,7 @@ public class GestioneBonusCalcolati {
 		arrayBonusLabel.add("Modificatore a tutti i Tiri Salvezza");
 		arrayBonusLabel.add("Modificatore a Iniziativa (Talenti)");
 		arrayBonusLabel.add("Modificatore a Iniziativa (Altro)");
+		arrayBonusLabel.add("Modificatore al danno (tutte le armi)");
 		arrayBonusLabel.add("Modificatore Abilità");
 
 		return arrayBonusLabel;
