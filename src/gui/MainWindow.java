@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -63,11 +64,21 @@ import gui.panel.PgPrivilegiDiClassePanel;
 import obj.OpzioniObj;
 import obj.PgDatiObj;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.event.WindowStateListener;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JScrollPane;
+import java.awt.Insets;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
 
-public class MainWindow extends JFrame implements FocusListener, ActionListener {
+public class MainWindow extends JFrame implements FocusListener, ActionListener, TreeSelectionListener {
 
 	private JPanel contentPane;
 	PgDatiObj pgDatiObj = new PgDatiObj();
@@ -116,6 +127,9 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 	private JCheckBoxMenuItem chckbxmntmManovre;
 	private JMenu mnOpzioni;
 	private JMenuItem mntmCambioLingua;
+	private JScrollPane scrollPane;
+	private JPanel panel;
+	private JTree tree;
 
 	/**
 	 * Launch the application.
@@ -186,7 +200,7 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 		setTitle("Scheda PG by Bazzu");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-		setBounds(100, 100, 889, 590);
+		setBounds(100, 100, 1091, 590);
 		opzioniObj = gestioneJsonOpzioni.getOpzioniObj();
 		if (opzioniObj.isMaximized()) {
 			setExtendedState(MAXIMIZED_BOTH);
@@ -251,20 +265,56 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 		chckbxmntmManovre = new JCheckBoxMenuItem("Manovre");
 		chckbxmntmManovre.addActionListener(this);
 		mnPannelli.add(chckbxmntmManovre);
-		
+
 		mnOpzioni = new JMenu("Opzioni");
 		menuBar.add(mnOpzioni);
-		
+
 		mntmCambioLingua = new JMenuItem("Cambio Lingua");
 		mntmCambioLingua.addActionListener(this);
 		mnOpzioni.add(mntmCambioLingua);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[] { 200, 863, 0 };
+		gbl_contentPane.rowHeights = new int[] { 520, 0 };
+		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		contentPane.setLayout(gbl_contentPane);
+
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		contentPane.add(scrollPane, gbc_scrollPane);
+
+		panel = new JPanel();
+		scrollPane.setViewportView(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		panel.setLayout(gbl_panel);
+
+		tree = new JTree();
+		tree.addTreeSelectionListener(this);
+
+		
+		GridBagConstraints gbc_tree = new GridBagConstraints();
+		gbc_tree.fill = GridBagConstraints.BOTH;
+		gbc_tree.gridx = 0;
+		gbc_tree.gridy = 0;
+		panel.add(tree, gbc_tree);
 
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_tabbedPane.gridx = 1;
+		gbc_tabbedPane.gridy = 0;
+		contentPane.add(tabbedPane, gbc_tabbedPane);
 
 		pgDatiPanel = new PgDatiPanel(pgDatiObj, opzioniObj);
 		pgDatiPanel.getTextFieldNomePg().setEnabled(true);
@@ -332,7 +382,7 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 		pgEquipPanel = new PgEquipPanel(pgDatiObj);
 		pgEquipPanel.setFrame(this);
 		tabbedPane.addTab("Equipaggiamento", null, pgEquipPanel, null);
-		
+
 		pgMovimentoPanel = new PgMovimentoPanel(pgDatiObj);
 		pgMovimentoPanel.setFrame(this);
 		tabbedPane.addTab("Movimento", null, pgMovimentoPanel, null);
@@ -357,6 +407,7 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 	 * 
 	 * @param pgDatiObj
 	 */
+	@SuppressWarnings("serial")
 	public void popolaFrame(PgDatiObj pgDatiObj) {
 
 		setTitle(pgDatiObj.getNomePg() + " - Scheda PG by Bazzu");
@@ -390,6 +441,14 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 			}
 		}
 
+		// Aggiornamento tree laterale
+		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Scheda") {
+			{
+				for (int i=0; i < tabbedPane.getTabCount();i++){
+					add(new DefaultMutableTreeNode(tabbedPane.getTitleAt(i)));
+				}
+			}
+		}));
 		// Aggiornamento oggetto con tutti i dati calcolati
 		pgDatiObj = calcolaDati.calcola(pgDatiObj);
 
@@ -614,7 +673,7 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 	private void cambioLingua() {
 		ScegliLinguaDialog scegliLinguaDialog = new ScegliLinguaDialog();
 		scegliLinguaDialog.setVisible(true);
-		popolaFrame(pgDatiObj);		
+		popolaFrame(pgDatiObj);
 	}
 
 	@Override
@@ -667,5 +726,27 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener 
 		}
 	}
 
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		Object oggetto = e.getSource();
+		if (oggetto instanceof JTree) {
+			if (((JTree) oggetto) == tree) {
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
+				if (node == null) {
+					return;
+				}
+
+				if (node.isLeaf()) {
+					for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+						if (tabbedPane.getTitleAt(i).equals(node.toString())) {
+							tabbedPane.setSelectedIndex(i);
+						}
+					}
+				} else {
+				}
+			}
+		}
+	}
 
 }
