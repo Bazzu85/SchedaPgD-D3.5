@@ -398,6 +398,30 @@ public class AggiornaOggetti {
 				}
 			}
 			break;
+		case MANOVRE_CONOSCIUTE:
+			if (pgDatiObj.getManovreConosciute() == Integer.parseInt((String) valore)) {
+			} else {
+				pgDatiObj.setManovreConosciute(Integer.parseInt((String) valore));
+				pgDatiObj.setDatiVariati(true);
+				pgDatiObj.setDatiCommittati(false);
+			}
+			break;
+		case MANOVRE_PRONTE:
+			if (pgDatiObj.getManovrePronte() == Integer.parseInt((String) valore)) {
+			} else {
+				pgDatiObj.setManovrePronte(Integer.parseInt((String) valore));
+				pgDatiObj.setDatiVariati(true);
+				pgDatiObj.setDatiCommittati(false);
+			}
+			break;
+		case STANCE_CONOSCIUTE:
+			if (pgDatiObj.getStanceConosciute() == Integer.parseInt((String) valore)) {
+			} else {
+				pgDatiObj.setStanceConosciute(Integer.parseInt((String) valore));
+				pgDatiObj.setDatiVariati(true);
+				pgDatiObj.setDatiCommittati(false);
+			}
+			break;
 		case APPUNTI:
 			if (pgDatiObj.getAppunti().equals(valore)) {
 			} else {
@@ -1964,6 +1988,13 @@ public class AggiornaOggetti {
 			if (pgManovreObj.isPronta() == Boolean.valueOf(valore.toString())) {
 			} else {
 				pgManovreObj.setPronta(Boolean.valueOf(valore.toString()));
+				pgManovreObj.setDatiVariati(true);
+			}
+			break;
+		case DA_USARE:
+			if (pgManovreObj.isDaUsare() == Boolean.valueOf(valore.toString())) {
+			} else {
+				pgManovreObj.setDaUsare(Boolean.valueOf(valore.toString()));
 				pgManovreObj.setDatiVariati(true);
 			}
 			break;

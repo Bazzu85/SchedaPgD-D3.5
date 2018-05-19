@@ -148,6 +148,8 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 		setLayout(gridBagLayout);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
@@ -839,6 +841,7 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 		lblArmi = new JLabel("ARMI");
 		lblArmi.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblArmi = new GridBagConstraints();
+		gbc_lblArmi.anchor = GridBagConstraints.WEST;
 		gbc_lblArmi.insets = new Insets(0, 0, 5, 0);
 		gbc_lblArmi.gridx = 0;
 		gbc_lblArmi.gridy = 0;
@@ -879,6 +882,7 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 		lblAbilita = new JLabel("ABILITA");
 		lblAbilita.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAbilita = new GridBagConstraints();
+		gbc_lblAbilita.anchor = GridBagConstraints.WEST;
 		gbc_lblAbilita.insets = new Insets(0, 0, 5, 0);
 		gbc_lblAbilita.gridx = 0;
 		gbc_lblAbilita.gridy = 0;
@@ -910,7 +914,6 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 		panelTalenti = new JPanel();
 		GridBagConstraints gbc_panelTalenti = new GridBagConstraints();
 		gbc_panelTalenti.gridwidth = 4;
-		gbc_panelTalenti.insets = new Insets(0, 0, 0, 5);
 		gbc_panelTalenti.fill = GridBagConstraints.BOTH;
 		gbc_panelTalenti.gridx = 0;
 		gbc_panelTalenti.gridy = 5;

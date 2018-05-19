@@ -130,6 +130,7 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener,
 	private JScrollPane scrollPane;
 	private JPanel panel;
 	private JTree tree;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -276,9 +277,9 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener,
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 200, 863, 0 };
+		gbl_contentPane.columnWidths = new int[] { 150, 863, 0 };
 		gbl_contentPane.rowHeights = new int[] { 520, 0 };
-		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -298,16 +299,17 @@ public class MainWindow extends JFrame implements FocusListener, ActionListener,
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-
-		tree = new JTree();
-		tree.addTreeSelectionListener(this);
-
 		
-		GridBagConstraints gbc_tree = new GridBagConstraints();
-		gbc_tree.fill = GridBagConstraints.BOTH;
-		gbc_tree.gridx = 0;
-		gbc_tree.gridy = 0;
-		panel.add(tree, gbc_tree);
+		scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 0;
+		panel.add(scrollPane_1, gbc_scrollPane_1);
+		
+				tree = new JTree();
+				scrollPane_1.setViewportView(tree);
+				tree.addTreeSelectionListener(this);
 
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();

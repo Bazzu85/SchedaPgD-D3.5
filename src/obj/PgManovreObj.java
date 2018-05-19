@@ -8,6 +8,7 @@ public class PgManovreObj {
 	String disciplina = "";
 	int lvl = 0;
 	boolean pronta = false;
+	boolean daUsare = false;
 	String descrizione = "";
 	public boolean isDatiVariati() {
 		return datiVariati;
@@ -50,6 +51,12 @@ public class PgManovreObj {
 	}
 	public void setPronta(boolean pronta) {
 		this.pronta = pronta;
+	}
+	public boolean isDaUsare() {
+		return daUsare;
+	}
+	public void setDaUsare(boolean daUsare) {
+		this.daUsare = daUsare;
 	}
 	public String getDescrizione() {
 		return descrizione;

@@ -6,5 +6,6 @@ public enum ListaPgManovre {
 	DISCIPLINA,
 	LVL,
 	PRONTA,
-	DESCRIZIONE
+	DA_USARE,
+	DESCRIZIONE 
 }

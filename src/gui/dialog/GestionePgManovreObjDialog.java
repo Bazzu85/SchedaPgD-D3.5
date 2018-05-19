@@ -51,7 +51,6 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 	ListaGestioneDati azione;
 	PgManovreComboBox pgManovreComboBox = new PgManovreComboBox();
 
-
 	Formati formati = new Formati();
 	AggiornaOggetti aggiornaOggetti = new AggiornaOggetti();
 	private JButton okButton;
@@ -68,6 +67,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 	private JLabel lblLvl;
 	private JFormattedTextField formattedTextFieldLvl;
 	private JCheckBox chckbxPronta;
+	private JCheckBox chckbxDaUsare;
 
 	/**
 	 * Launch the application.
@@ -82,7 +82,8 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 
 		try {
 			PgManovreObj pgManovreObj = new PgManovreObj();
-			GestionePgManovreObjDialog dialog = new GestionePgManovreObjDialog(ListaGestioneDati.INSERISCI, 0, pgManovreObj);
+			GestionePgManovreObjDialog dialog = new GestionePgManovreObjDialog(ListaGestioneDati.INSERISCI, 0,
+					pgManovreObj);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -118,9 +119,9 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 0, 99, 0 };
+		gbl_contentPanel.columnWidths = new int[] { 0, 99, 0, 0 };
 		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -136,6 +137,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			textFieldNome = new JTextField();
 			textFieldNome.addFocusListener(this);
 			GridBagConstraints gbc_textFieldManovra = new GridBagConstraints();
+			gbc_textFieldManovra.gridwidth = 2;
 			gbc_textFieldManovra.insets = new Insets(0, 0, 5, 0);
 			gbc_textFieldManovra.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textFieldManovra.gridx = 1;
@@ -156,6 +158,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			comboBoxTipo = new JComboBox();
 			comboBoxTipo.addFocusListener(this);
 			GridBagConstraints gbc_comboBoxTipo = new GridBagConstraints();
+			gbc_comboBoxTipo.gridwidth = 2;
 			gbc_comboBoxTipo.insets = new Insets(0, 0, 5, 0);
 			gbc_comboBoxTipo.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBoxTipo.gridx = 1;
@@ -175,6 +178,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			comboBoxDisciplina = new JComboBox();
 			comboBoxDisciplina.addFocusListener(this);
 			GridBagConstraints gbc_comboBoxDisciplina = new GridBagConstraints();
+			gbc_comboBoxDisciplina.gridwidth = 2;
 			gbc_comboBoxDisciplina.insets = new Insets(0, 0, 5, 0);
 			gbc_comboBoxDisciplina.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBoxDisciplina.gridx = 1;
@@ -194,6 +198,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			formattedTextFieldLvl = new JFormattedTextField(soloNumeri);
 			formattedTextFieldLvl.addFocusListener(this);
 			GridBagConstraints gbc_formattedTextFieldLvl = new GridBagConstraints();
+			gbc_formattedTextFieldLvl.gridwidth = 2;
 			gbc_formattedTextFieldLvl.insets = new Insets(0, 0, 5, 0);
 			gbc_formattedTextFieldLvl.fill = GridBagConstraints.HORIZONTAL;
 			gbc_formattedTextFieldLvl.gridx = 1;
@@ -205,10 +210,19 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			chckbxPronta.addActionListener(this);
 			GridBagConstraints gbc_chckbxPronta = new GridBagConstraints();
 			gbc_chckbxPronta.gridwidth = 2;
-			gbc_chckbxPronta.insets = new Insets(0, 0, 5, 0);
+			gbc_chckbxPronta.insets = new Insets(0, 0, 5, 5);
 			gbc_chckbxPronta.gridx = 0;
 			gbc_chckbxPronta.gridy = 4;
 			contentPanel.add(chckbxPronta, gbc_chckbxPronta);
+		}
+		{
+			chckbxDaUsare = new JCheckBox("Da Usare");
+			chckbxDaUsare.addActionListener(this);
+			GridBagConstraints gbc_chckbxDaUsare = new GridBagConstraints();
+			gbc_chckbxDaUsare.insets = new Insets(0, 0, 5, 0);
+			gbc_chckbxDaUsare.gridx = 2;
+			gbc_chckbxDaUsare.gridy = 4;
+			contentPanel.add(chckbxDaUsare, gbc_chckbxDaUsare);
 		}
 		{
 			JLabel lblDescrizione = new JLabel("Descrizione:");
@@ -223,6 +237,8 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			{
 				scrollPane = new JScrollPane();
 				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.gridwidth = 2;
+				gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
 				gbc_scrollPane.fill = GridBagConstraints.BOTH;
 				gbc_scrollPane.gridx = 1;
 				gbc_scrollPane.gridy = 5;
@@ -263,7 +279,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 	private void popolaFrame() {
 
 		textFieldNome.setText(pgManovreObj.getNome());
-		
+
 		// Carica comboBoxTipo
 		comboBoxTipo.setModel(pgManovreComboBox.creaComboBoxTipo().getModel());
 
@@ -275,7 +291,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 				}
 			}
 		}
-		
+
 		// Carica comboBoxDisciplina
 		comboBoxDisciplina.setModel(pgManovreComboBox.creaComboBoxDisciplina().getModel());
 
@@ -287,9 +303,19 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 				}
 			}
 		}
-		
+
 		formattedTextFieldLvl.setValue(pgManovreObj.getLvl());
 		chckbxPronta.setSelected(pgManovreObj.isPronta());
+		if (pgManovreObj.getTipo().equals("Stance")) {
+			chckbxDaUsare.setEnabled(false);
+		} else {
+			if (!chckbxPronta.isSelected()) {
+				chckbxDaUsare.setEnabled(false);
+			} else {
+				chckbxDaUsare.setEnabled(true);
+			}
+		}
+		chckbxDaUsare.setSelected(pgManovreObj.isDaUsare());
 		textAreaDescrizione.setText(pgManovreObj.getDescrizione());
 
 	}
@@ -307,6 +333,11 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 		}
 		if (datiOk && pgManovreObj.getDisciplina().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Selezionare la disciplina", "Errore", JOptionPane.ERROR_MESSAGE);
+			datiOk = false;
+		}
+		if (datiOk && !pgManovreObj.isPronta() && pgManovreObj.isDaUsare()) {
+			JOptionPane.showMessageDialog(this, "Per impostare una manovra come 'Da usare', impostarla come 'Pronta'",
+					"Errore", JOptionPane.ERROR_MESSAGE);
 			datiOk = false;
 		}
 		if (datiOk) {
@@ -333,7 +364,8 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 		}
 		if (component instanceof JFormattedTextField) {
 			if ((JFormattedTextField) component == formattedTextFieldLvl) {
-				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.LVL, formattedTextFieldLvl.getText());
+				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.LVL,
+						formattedTextFieldLvl.getText());
 			}
 		}
 		if (component instanceof JTextArea) {
@@ -346,6 +378,7 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			if ((JComboBox) component == comboBoxTipo) {
 				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.TIPO,
 						comboBoxTipo.getSelectedItem().toString());
+				popolaFrame();
 			}
 			if ((JComboBox) component == comboBoxDisciplina) {
 				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.DISCIPLINA,
@@ -363,6 +396,12 @@ public class GestionePgManovreObjDialog extends JDialog implements FocusListener
 			if (((JCheckBox) oggetto).getActionCommand() == chckbxPronta.getActionCommand()) {
 				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.PRONTA,
 						Boolean.valueOf(chckbxPronta.isSelected()).toString());
+				popolaFrame();
+			}
+			if (((JCheckBox) oggetto).getActionCommand() == chckbxDaUsare.getActionCommand()) {
+				pgManovreObj = aggiornaOggetti.aggiornaManovre(pgManovreObj, ListaPgManovre.DA_USARE,
+						Boolean.valueOf(chckbxDaUsare.isSelected()).toString());
+				popolaFrame();
 			}
 		}
 		if (oggetto instanceof JButton) {

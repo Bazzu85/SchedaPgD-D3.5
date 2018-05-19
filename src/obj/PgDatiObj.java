@@ -56,6 +56,9 @@ public class PgDatiObj{
 	Double totalePesi = 0.00;
 	PgMovimentoObj pgMovimentoObj = new PgMovimentoObj();
 	PgCaricoObj pgCaricoObj = new PgCaricoObj();
+	int manovreConosciute = 0;
+	int manovrePronte = 0;
+	int stanceConosciute = 0;
 
 	String appunti = "";
 
@@ -468,6 +471,30 @@ public class PgDatiObj{
 
 	public void setPgCaricoObj(PgCaricoObj pgCaricoObj) {
 		this.pgCaricoObj = pgCaricoObj;
+	}
+
+	public int getManovreConosciute() {
+		return manovreConosciute;
+	}
+
+	public void setManovreConosciute(int manovreConosciute) {
+		this.manovreConosciute = manovreConosciute;
+	}
+
+	public int getManovrePronte() {
+		return manovrePronte;
+	}
+
+	public void setManovrePronte(int manovrePronte) {
+		this.manovrePronte = manovrePronte;
+	}
+
+	public int getStanceConosciute() {
+		return stanceConosciute;
+	}
+
+	public void setStanceConosciute(int stanceConosciute) {
+		this.stanceConosciute = stanceConosciute;
 	}
 
 	public String getAppunti() {
