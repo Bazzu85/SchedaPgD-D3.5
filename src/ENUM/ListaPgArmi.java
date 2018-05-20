@@ -2,6 +2,7 @@ package ENUM;
 
 public enum ListaPgArmi {
 	ARMA,
+	NOME_ARMA,
 	TAGLIA,
 	QUALITA,
 	MOD,

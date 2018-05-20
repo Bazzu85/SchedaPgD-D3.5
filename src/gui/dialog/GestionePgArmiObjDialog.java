@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
 
 public class GestionePgArmiObjDialog extends JDialog implements FocusListener, ActionListener {
 
@@ -74,6 +75,8 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 	private JTextField textFieldModBabDescrizione;
 	private JTextField textFieldModDannoDescrizione;
 	private JCheckBox chckbxEquipaggiata;
+	private JLabel lblNomeArma;
+	private JTextField textFieldNomeArma;
 
 	/**
 	 * Launch the application.
@@ -123,15 +126,15 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 		}
 
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 451, 338);
+		setBounds(100, 100, 451, 387);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 60, 130, 236, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
@@ -165,12 +168,33 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			contentPanel.add(chckbxEquipaggiata, gbc_chckbxEquipaggiata);
 		}
 		{
+			lblNomeArma = new JLabel("Nome Arma:");
+			GridBagConstraints gbc_lblNomeArma = new GridBagConstraints();
+			gbc_lblNomeArma.anchor = GridBagConstraints.EAST;
+			gbc_lblNomeArma.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNomeArma.gridx = 0;
+			gbc_lblNomeArma.gridy = 1;
+			contentPanel.add(lblNomeArma, gbc_lblNomeArma);
+		}
+		{
+			textFieldNomeArma = new JTextField();
+			textFieldNomeArma.addFocusListener(this);
+			GridBagConstraints gbc_textFieldNomeArma = new GridBagConstraints();
+			gbc_textFieldNomeArma.gridwidth = 3;
+			gbc_textFieldNomeArma.insets = new Insets(0, 0, 5, 5);
+			gbc_textFieldNomeArma.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textFieldNomeArma.gridx = 1;
+			gbc_textFieldNomeArma.gridy = 1;
+			contentPanel.add(textFieldNomeArma, gbc_textFieldNomeArma);
+			textFieldNomeArma.setColumns(10);
+		}
+		{
 			JLabel lblTaglia = new JLabel("Taglia:");
 			GridBagConstraints gbc_lblTaglia = new GridBagConstraints();
 			gbc_lblTaglia.anchor = GridBagConstraints.EAST;
 			gbc_lblTaglia.insets = new Insets(0, 0, 5, 5);
 			gbc_lblTaglia.gridx = 0;
-			gbc_lblTaglia.gridy = 1;
+			gbc_lblTaglia.gridy = 2;
 			contentPanel.add(lblTaglia, gbc_lblTaglia);
 		}
 		{
@@ -181,7 +205,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_comboBoxTaglia.insets = new Insets(0, 0, 5, 5);
 			gbc_comboBoxTaglia.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBoxTaglia.gridx = 1;
-			gbc_comboBoxTaglia.gridy = 1;
+			gbc_comboBoxTaglia.gridy = 2;
 			contentPanel.add(comboBoxTaglia, gbc_comboBoxTaglia);
 		}
 		{
@@ -190,7 +214,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblQualita.anchor = GridBagConstraints.EAST;
 			gbc_lblQualita.insets = new Insets(0, 0, 5, 5);
 			gbc_lblQualita.gridx = 0;
-			gbc_lblQualita.gridy = 2;
+			gbc_lblQualita.gridy = 3;
 			contentPanel.add(lblQualita, gbc_lblQualita);
 		}
 		{
@@ -201,7 +225,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_comboBoxQualita.insets = new Insets(0, 0, 5, 5);
 			gbc_comboBoxQualita.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBoxQualita.gridx = 1;
-			gbc_comboBoxQualita.gridy = 2;
+			gbc_comboBoxQualita.gridy = 3;
 			contentPanel.add(comboBoxQualita, gbc_comboBoxQualita);
 		}
 		{
@@ -210,7 +234,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblMod.anchor = GridBagConstraints.EAST;
 			gbc_lblMod.insets = new Insets(0, 0, 5, 5);
 			gbc_lblMod.gridx = 0;
-			gbc_lblMod.gridy = 3;
+			gbc_lblMod.gridy = 4;
 			contentPanel.add(lblMod, gbc_lblMod);
 		}
 		{
@@ -220,7 +244,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_formattedTextFieldMod.insets = new Insets(0, 0, 5, 5);
 			gbc_formattedTextFieldMod.fill = GridBagConstraints.HORIZONTAL;
 			gbc_formattedTextFieldMod.gridx = 1;
-			gbc_formattedTextFieldMod.gridy = 3;
+			gbc_formattedTextFieldMod.gridy = 4;
 			contentPanel.add(formattedTextFieldMod, gbc_formattedTextFieldMod);
 		}
 		{
@@ -229,7 +253,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblIncantamento.anchor = GridBagConstraints.EAST;
 			gbc_lblIncantamento.insets = new Insets(0, 0, 5, 5);
 			gbc_lblIncantamento.gridx = 0;
-			gbc_lblIncantamento.gridy = 4;
+			gbc_lblIncantamento.gridy = 5;
 			contentPanel.add(lblIncantamento, gbc_lblIncantamento);
 		}
 		{
@@ -241,7 +265,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_textFieldIncantamento.insets = new Insets(0, 0, 5, 5);
 			gbc_textFieldIncantamento.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textFieldIncantamento.gridx = 1;
-			gbc_textFieldIncantamento.gridy = 4;
+			gbc_textFieldIncantamento.gridy = 5;
 			contentPanel.add(textFieldIncantamento, gbc_textFieldIncantamento);
 			textFieldIncantamento.setColumns(10);
 		}
@@ -251,7 +275,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblBonusIncantamento.anchor = GridBagConstraints.EAST;
 			gbc_lblBonusIncantamento.insets = new Insets(0, 0, 5, 5);
 			gbc_lblBonusIncantamento.gridx = 0;
-			gbc_lblBonusIncantamento.gridy = 5;
+			gbc_lblBonusIncantamento.gridy = 6;
 			contentPanel.add(lblBonusIncantamento, gbc_lblBonusIncantamento);
 		}
 		{
@@ -263,7 +287,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_textFieldBonusIncantamento.insets = new Insets(0, 0, 5, 5);
 			gbc_textFieldBonusIncantamento.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textFieldBonusIncantamento.gridx = 1;
-			gbc_textFieldBonusIncantamento.gridy = 5;
+			gbc_textFieldBonusIncantamento.gridy = 6;
 			contentPanel.add(textFieldBonusIncantamento, gbc_textFieldBonusIncantamento);
 		}
 		{
@@ -272,7 +296,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblModBab.anchor = GridBagConstraints.EAST;
 			gbc_lblModBab.insets = new Insets(0, 0, 5, 5);
 			gbc_lblModBab.gridx = 0;
-			gbc_lblModBab.gridy = 6;
+			gbc_lblModBab.gridy = 7;
 			contentPanel.add(lblModBab, gbc_lblModBab);
 		}
 		{
@@ -283,7 +307,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_formattedTextFieldModBab.insets = new Insets(0, 0, 5, 5);
 			gbc_formattedTextFieldModBab.fill = GridBagConstraints.HORIZONTAL;
 			gbc_formattedTextFieldModBab.gridx = 1;
-			gbc_formattedTextFieldModBab.gridy = 6;
+			gbc_formattedTextFieldModBab.gridy = 7;
 			contentPanel.add(formattedTextFieldModBab, gbc_formattedTextFieldModBab);
 		}
 		{
@@ -295,7 +319,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_textFieldModBabDescrizione.insets = new Insets(0, 0, 5, 0);
 			gbc_textFieldModBabDescrizione.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textFieldModBabDescrizione.gridx = 2;
-			gbc_textFieldModBabDescrizione.gridy = 6;
+			gbc_textFieldModBabDescrizione.gridy = 7;
 			contentPanel.add(textFieldModBabDescrizione, gbc_textFieldModBabDescrizione);
 			textFieldModBabDescrizione.setColumns(10);
 		}
@@ -305,7 +329,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblModDanno.anchor = GridBagConstraints.EAST;
 			gbc_lblModDanno.insets = new Insets(0, 0, 5, 5);
 			gbc_lblModDanno.gridx = 0;
-			gbc_lblModDanno.gridy = 7;
+			gbc_lblModDanno.gridy = 8;
 			contentPanel.add(lblModDanno, gbc_lblModDanno);
 		}
 		{
@@ -316,7 +340,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_formattedTextFieldModDanno.insets = new Insets(0, 0, 5, 5);
 			gbc_formattedTextFieldModDanno.fill = GridBagConstraints.HORIZONTAL;
 			gbc_formattedTextFieldModDanno.gridx = 1;
-			gbc_formattedTextFieldModDanno.gridy = 7;
+			gbc_formattedTextFieldModDanno.gridy = 8;
 			contentPanel.add(formattedTextFieldModDanno, gbc_formattedTextFieldModDanno);
 		}
 
@@ -332,7 +356,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 				gbc_textFieldModDannoDescrizione.insets = new Insets(0, 0, 5, 0);
 				gbc_textFieldModDannoDescrizione.fill = GridBagConstraints.HORIZONTAL;
 				gbc_textFieldModDannoDescrizione.gridx = 2;
-				gbc_textFieldModDannoDescrizione.gridy = 7;
+				gbc_textFieldModDannoDescrizione.gridy = 8;
 				contentPanel.add(textFieldModDannoDescrizione, gbc_textFieldModDannoDescrizione);
 				textFieldModDannoDescrizione.setColumns(10);
 			}
@@ -340,7 +364,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_chckbxNewCheckBox.gridwidth = 2;
 			gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
 			gbc_chckbxNewCheckBox.gridx = 0;
-			gbc_chckbxNewCheckBox.gridy = 8;
+			gbc_chckbxNewCheckBox.gridy = 9;
 			contentPanel.add(chckbxTenuta2Mani, gbc_chckbxNewCheckBox);
 		}
 		{
@@ -350,7 +374,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_chckbxDoppiaArma.insets = new Insets(0, 0, 5, 5);
 			gbc_chckbxDoppiaArma.anchor = GridBagConstraints.WEST;
 			gbc_chckbxDoppiaArma.gridx = 2;
-			gbc_chckbxDoppiaArma.gridy = 8;
+			gbc_chckbxDoppiaArma.gridy = 9;
 			contentPanel.add(chckbxDoppiaArma, gbc_chckbxDoppiaArma);
 		}
 		{
@@ -359,7 +383,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_lblPrimariasecondaria.anchor = GridBagConstraints.EAST;
 			gbc_lblPrimariasecondaria.insets = new Insets(0, 0, 0, 5);
 			gbc_lblPrimariasecondaria.gridx = 0;
-			gbc_lblPrimariasecondaria.gridy = 9;
+			gbc_lblPrimariasecondaria.gridy = 10;
 			contentPanel.add(lblPrimariasecondaria, gbc_lblPrimariasecondaria);
 		}
 		{
@@ -370,7 +394,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			gbc_comboBoxPrimariaSecondaria.insets = new Insets(0, 0, 0, 5);
 			gbc_comboBoxPrimariaSecondaria.fill = GridBagConstraints.HORIZONTAL;
 			gbc_comboBoxPrimariaSecondaria.gridx = 1;
-			gbc_comboBoxPrimariaSecondaria.gridy = 9;
+			gbc_comboBoxPrimariaSecondaria.gridy = 10;
 			contentPanel.add(comboBoxPrimariaSecondaria, gbc_comboBoxPrimariaSecondaria);
 		}
 		{
@@ -412,6 +436,7 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			}
 		}
 		chckbxEquipaggiata.setSelected(pgArmiObj.isEquipaggiata());
+		textFieldNomeArma.setText(pgArmiObj.getNomeArma());
 
 		comboBoxTaglia.setModel(acb.creaComboBoxTaglia().getModel());
 		if (comboBoxTaglia.getItemCount() != 0) {
@@ -587,6 +612,11 @@ public class GestionePgArmiObjDialog extends JDialog implements FocusListener, A
 			}
 		}
 		if (component instanceof JTextField) {
+			if ((JTextField) component == textFieldNomeArma) {
+				pgArmiObj = aggiornaOggetti.aggiornaArmi(pgArmiObj, ListaPgArmi.NOME_ARMA,
+						textFieldNomeArma.getText());
+			}
+			
 			if ((JTextField) component == textFieldIncantamento) {
 				pgArmiObj = aggiornaOggetti.aggiornaArmi(pgArmiObj, ListaPgArmi.INCANTAMENTI,
 						textFieldIncantamento.getText());

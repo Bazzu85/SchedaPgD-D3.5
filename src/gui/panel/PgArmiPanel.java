@@ -108,14 +108,14 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 		PgArmiTableModel pgArmiTableModel = new PgArmiTableModel();
 		tableArmi.setModel(pgArmiTableModel);
 
-		tableArmi.getColumnModel().getColumn(3).setCellRenderer(new DecimalWithSignFormatRenderer());
-		tableArmi.getColumnModel().getColumn(6).setCellRenderer(new DecimalWithSignFormatRenderer());
+		tableArmi.getColumnModel().getColumn(4).setCellRenderer(new DecimalWithSignFormatRenderer());
 		tableArmi.getColumnModel().getColumn(7).setCellRenderer(new DecimalWithSignFormatRenderer());
+		tableArmi.getColumnModel().getColumn(8).setCellRenderer(new DecimalWithSignFormatRenderer());
 
 		TableColumnModel tcm = tableArmi.getColumnModel();
+		tcm.removeColumn(tcm.getColumn(15));
 		tcm.removeColumn(tcm.getColumn(14));
 		tcm.removeColumn(tcm.getColumn(13));
-		tcm.removeColumn(tcm.getColumn(12));
 
 		tableArmi.getTableHeader().addMouseListener(this);
 		tableArmi.getTableHeader().setReorderingAllowed(false);
@@ -220,7 +220,7 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 		for (int i = 0; i < arrayPgArmi.size(); i++) {
 			PgArmiObj pgArmiObj = arrayPgArmi.get(i);
 			((DefaultTableModel) modelArmi)
-					.addRow(new Object[] { pgArmiObj.getArma(), pgArmiObj.getTaglia(), pgArmiObj.getQualita(),
+					.addRow(new Object[] { pgArmiObj.getArma(), pgArmiObj.getNomeArma(), pgArmiObj.getTaglia(), pgArmiObj.getQualita(),
 							pgArmiObj.getMod(), pgArmiObj.getIncantamenti(), pgArmiObj.getBonusIncantamenti(),
 							pgArmiObj.getModBab(), pgArmiObj.getModDanno(), pgArmiObj.isA2Mani(),
 							pgArmiObj.isDoppiaArma(), pgArmiObj.getPrimariaSecondaria(), pgArmiObj.isEquipaggiata(),
@@ -328,17 +328,17 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 		arrayArmiOriginale = pgDatiObjTemp.getArrayArmi();
 		for (int i = 0; i < tableArmi.getRowCount(); i++) {
 			// Pulizia campi della tabella che sono stati puliti
-			if (tableArmi.getModel().getValueAt(i, 3) == null) {
-				tableArmi.getModel().setValueAt(0, i, 3);
-			}
-			if (tableArmi.getModel().getValueAt(i, 5) == null) {
-				tableArmi.getModel().setValueAt(0, i, 5);
+			if (tableArmi.getModel().getValueAt(i, 4) == null) {
+				tableArmi.getModel().setValueAt(0, i, 4);
 			}
 			if (tableArmi.getModel().getValueAt(i, 6) == null) {
 				tableArmi.getModel().setValueAt(0, i, 6);
 			}
 			if (tableArmi.getModel().getValueAt(i, 7) == null) {
 				tableArmi.getModel().setValueAt(0, i, 7);
+			}
+			if (tableArmi.getModel().getValueAt(i, 8) == null) {
+				tableArmi.getModel().setValueAt(0, i, 8);
 			}
 
 			// Recupero valorizzo oggetto pgArmiObj con i dati della JTable
@@ -347,20 +347,21 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 			// dalla vista con il solo getValueAt() da un valore errato
 			PgArmiObj pgArmiObj = new PgArmiObj();
 			pgArmiObj.setArma(tableArmi.getValueAt(i, 0).toString());
-			pgArmiObj.setTaglia(tableArmi.getValueAt(i, 1).toString());
-			pgArmiObj.setQualita(tableArmi.getValueAt(i, 2).toString());
-			pgArmiObj.setMod(Integer.parseInt(tableArmi.getValueAt(i, 3).toString()));
-			pgArmiObj.setIncantamenti(tableArmi.getValueAt(i, 4).toString());
-			pgArmiObj.setBonusIncantamenti(tableArmi.getValueAt(i, 5).toString());
-			pgArmiObj.setModBab(Integer.parseInt(tableArmi.getValueAt(i, 6).toString()));
-			pgArmiObj.setModDanno(Integer.parseInt(tableArmi.getValueAt(i, 7).toString()));
-			pgArmiObj.setA2Mani((boolean) tableArmi.getValueAt(i, 8));
-			pgArmiObj.setDoppiaArma((boolean) tableArmi.getValueAt(i, 9));
-			pgArmiObj.setPrimariaSecondaria(tableArmi.getValueAt(i, 10).toString());
-			pgArmiObj.setEquipaggiata((boolean) tableArmi.getValueAt(i, 11));
-			pgArmiObj.setModBabDescrizione(tableArmi.getModel().getValueAt(i, 12).toString());
-			pgArmiObj.setModDannoDescrizione(tableArmi.getModel().getValueAt(i, 13).toString());
-			pgArmiObj.setPrg(Integer.parseInt(tableArmi.getModel().getValueAt(i, 14).toString()));
+			pgArmiObj.setNomeArma(tableArmi.getValueAt(i, 1).toString());
+			pgArmiObj.setTaglia(tableArmi.getValueAt(i, 2).toString());
+			pgArmiObj.setQualita(tableArmi.getValueAt(i, 3).toString());
+			pgArmiObj.setMod(Integer.parseInt(tableArmi.getValueAt(i, 4).toString()));
+			pgArmiObj.setIncantamenti(tableArmi.getValueAt(i, 5).toString());
+			pgArmiObj.setBonusIncantamenti(tableArmi.getValueAt(i, 6).toString());
+			pgArmiObj.setModBab(Integer.parseInt(tableArmi.getValueAt(i, 7).toString()));
+			pgArmiObj.setModDanno(Integer.parseInt(tableArmi.getValueAt(i, 8).toString()));
+			pgArmiObj.setA2Mani((boolean) tableArmi.getValueAt(i, 9));
+			pgArmiObj.setDoppiaArma((boolean) tableArmi.getValueAt(i, 10));
+			pgArmiObj.setPrimariaSecondaria(tableArmi.getValueAt(i, 11).toString());
+			pgArmiObj.setEquipaggiata((boolean) tableArmi.getValueAt(i, 12));
+			pgArmiObj.setModBabDescrizione(tableArmi.getModel().getValueAt(i, 13).toString());
+			pgArmiObj.setModDannoDescrizione(tableArmi.getModel().getValueAt(i, 14).toString());
+			pgArmiObj.setPrg(Integer.parseInt(tableArmi.getModel().getValueAt(i, 15).toString()));
 
 			// Se trovo il progressivo della riga che stiamo leggendo nell'array
 			// del db e i dati sono variati attiviamo il flag
@@ -368,10 +369,10 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 				PgArmiObj pgArmiObjOriginale = arrayArmiOriginale.get(i2);
 				if (pgArmiObjOriginale.getPrg() == pgArmiObj.getPrg()) {
 					if (pgArmiObj.getArma().equals(pgArmiObjOriginale.getArma())
+							&& pgArmiObj.getNomeArma().equals(pgArmiObjOriginale.getNomeArma())
 							&& pgArmiObj.getTaglia().equals(pgArmiObjOriginale.getTaglia())
 							&& pgArmiObj.getQualita().equals(pgArmiObjOriginale.getQualita())
 							&& pgArmiObj.getMod() == pgArmiObjOriginale.getMod()
-							&& pgArmiObj.getQualita().equals(pgArmiObjOriginale.getQualita())
 							&& pgArmiObj.getIncantamenti().equals(pgArmiObjOriginale.getIncantamenti())
 							&& pgArmiObj.getBonusIncantamenti().equals(pgArmiObjOriginale.getBonusIncantamenti())
 							&& pgArmiObj.getModBab() == pgArmiObjOriginale.getModBab()
@@ -380,7 +381,7 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 							&& pgArmiObj.getModDannoDescrizione().equals(pgArmiObjOriginale.getModDannoDescrizione())
 							&& pgArmiObj.isA2Mani() == pgArmiObjOriginale.isA2Mani()
 							&& pgArmiObj.isDoppiaArma() == pgArmiObjOriginale.isDoppiaArma()
-							&& pgArmiObj.isA2Mani() == pgArmiObjOriginale.isA2Mani()
+							&& pgArmiObj.getNote().equals(pgArmiObjOriginale.getNote())
 							&& pgArmiObj.getPrimariaSecondaria().equals(pgArmiObjOriginale.getPrimariaSecondaria())
 							&& pgArmiObj.isEquipaggiata() == pgArmiObjOriginale.isEquipaggiata()) {
 
@@ -400,17 +401,18 @@ public class PgArmiPanel extends JPanel implements ActionListener, FocusListener
 				tableArmi.getColumnModel().getColumn(i).setPreferredWidth(arrayDimensioni.get(i));
 			}
 		} else {
-			tableArmi.getColumnModel().getColumn(0).setPreferredWidth(300);
-			tableArmi.getColumnModel().getColumn(1).setPreferredWidth(50);
+			tableArmi.getColumnModel().getColumn(0).setPreferredWidth(150);
+			tableArmi.getColumnModel().getColumn(1).setPreferredWidth(200);
 			tableArmi.getColumnModel().getColumn(2).setPreferredWidth(50);
 			tableArmi.getColumnModel().getColumn(3).setPreferredWidth(50);
-			tableArmi.getColumnModel().getColumn(4).setPreferredWidth(300);
-			tableArmi.getColumnModel().getColumn(5).setPreferredWidth(80);
-			tableArmi.getColumnModel().getColumn(6).setPreferredWidth(70);
-			tableArmi.getColumnModel().getColumn(7).setPreferredWidth(50);
-			tableArmi.getColumnModel().getColumn(8).setPreferredWidth(70);
-			tableArmi.getColumnModel().getColumn(9).setPreferredWidth(90);
-			tableArmi.getColumnModel().getColumn(10).setPreferredWidth(75);
+			tableArmi.getColumnModel().getColumn(4).setPreferredWidth(50);
+			tableArmi.getColumnModel().getColumn(5).setPreferredWidth(300);
+			tableArmi.getColumnModel().getColumn(6).setPreferredWidth(80);
+			tableArmi.getColumnModel().getColumn(7).setPreferredWidth(70);
+			tableArmi.getColumnModel().getColumn(8).setPreferredWidth(50);
+			tableArmi.getColumnModel().getColumn(9).setPreferredWidth(70);
+			tableArmi.getColumnModel().getColumn(10).setPreferredWidth(90);
+			tableArmi.getColumnModel().getColumn(11).setPreferredWidth(75);
 		}
 	}
 

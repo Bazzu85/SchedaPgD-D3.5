@@ -107,6 +107,7 @@ public class PgAbilitaPanel extends JPanel implements ActionListener, FocusListe
 		tableAbilita.getColumnModel().getColumn(7).setCellRenderer(new DecimalWithSignFormatRenderer());
 		tableAbilita.getColumnModel().getColumn(8).setCellRenderer(new DecimalWithSignFormatRenderer());
 		TableColumnModel tcm = tableAbilita.getColumnModel();
+		tcm.removeColumn(tcm.getColumn(11));
 		tcm.removeColumn(tcm.getColumn(10));
 
 		// tableArmi.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
@@ -150,7 +151,7 @@ public class PgAbilitaPanel extends JPanel implements ActionListener, FocusListe
 					.addRow(new Object[] { pgAbilitaObj.isAbilitaDiClasse(), pgAbilitaObj.isAbilitaDiClasseIncrociata(),
 							pgAbilitaObj.getNome(), pgAbilitaObj.getCaratteristica(), pgAbilitaObj.getTotale(),
 							pgAbilitaObj.getModCaratteristica(), pgAbilitaObj.getGrado(), pgAbilitaObj.getAltro(),
-							pgAbilitaObj.getBonus(), pgAbilitaObj.isRichiedeAddestramento(), pgAbilitaObj.getPrg() });
+							pgAbilitaObj.getBonus(), pgAbilitaObj.isRichiedeAddestramento(), pgAbilitaObj.getPrg(), pgAbilitaObj.getAltroDescrizione() });
 
 		}
 		if (tableAbilita.getRowCount() > 0) {
@@ -203,6 +204,7 @@ public class PgAbilitaPanel extends JPanel implements ActionListener, FocusListe
 			pgAbilitaObj.setBonus(Integer.parseInt(tableAbilita.getValueAt(i, 8).toString()));
 			pgAbilitaObj.setRichiedeAddestramento((boolean) tableAbilita.getValueAt(i, 9));
 			pgAbilitaObj.setPrg(Integer.parseInt(tableAbilita.getModel().getValueAt(i, 10).toString()));
+			pgAbilitaObj.setAltroDescrizione(tableAbilita.getModel().getValueAt(i, 11).toString());
 	
 			// Se trovo il progressivo della riga che stiamo leggendo nell'array
 			// del db e i dati sono variati attiviamo il flag
@@ -248,7 +250,7 @@ public class PgAbilitaPanel extends JPanel implements ActionListener, FocusListe
 	}
 	
 	private void caricaDimensioniTableAbilita(ArrayList<Integer> arrayDimensioni) {
-		if (arrayDimensioni.size() > 0&& tableAbilita.getColumnCount() == arrayDimensioni.size()) {
+		if (arrayDimensioni.size() > 0 && tableAbilita.getColumnCount() == arrayDimensioni.size()) {
 			for (int i = 0; i < tableAbilita.getColumnCount(); i++) {
 				tableAbilita.getColumnModel().getColumn(i).setPreferredWidth(arrayDimensioni.get(i));
 			}

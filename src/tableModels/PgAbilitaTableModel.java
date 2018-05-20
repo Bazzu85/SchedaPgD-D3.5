@@ -22,7 +22,8 @@ public class PgAbilitaTableModel extends DefaultTableModel {
 				"Altro", // 7 Integer
 				"Bonus", // 8 Integer
 				"<html>Richiede<br>Addestramento</html>", // 9 Boolean
-				"Prg" // 10 Integer
+				"Prg", // 10 Integer
+				"Altro Desc" // 11 String
 		}, 0);
 	}
 

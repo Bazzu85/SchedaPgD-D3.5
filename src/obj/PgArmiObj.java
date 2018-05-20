@@ -5,6 +5,7 @@ public class PgArmiObj {
 	int prg = 0;
 	String arma = "";
 	int armaPrg = 0;
+	String nomeArma = "";
 	String taglia = "";
 	String qualita = "";
 	int mod = 0;
@@ -43,6 +44,13 @@ public class PgArmiObj {
 	}
 	public void setArmaPrg(int armaPrg) {
 		this.armaPrg = armaPrg;
+	}
+	
+	public String getNomeArma() {
+		return nomeArma;
+	}
+	public void setNomeArma(String nomeArma) {
+		this.nomeArma = nomeArma;
 	}
 	public String getTaglia() {
 		return taglia;

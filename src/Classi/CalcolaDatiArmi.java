@@ -59,7 +59,13 @@ public class CalcolaDatiArmi {
 
 		// TODO TABELLA RIEPILOGO (solo per le armi equipaggiate)
 		// Calcolo nome completo
-		String armaRiepilogo = pgArmiObj.getArma();
+		String armaRiepilogo = "";
+				
+		if (!pgArmiObj.getNomeArma().trim().isEmpty()){
+			armaRiepilogo = armaRiepilogo + pgArmiObj.getNomeArma();
+		} else {
+			armaRiepilogo = armaRiepilogo + pgArmiObj.getArma();
+		}
 
 		// Aggiungiamo la taglia
 		armaRiepilogo = armaRiepilogo + " (" + pgArmiObj.getTaglia() + ")";

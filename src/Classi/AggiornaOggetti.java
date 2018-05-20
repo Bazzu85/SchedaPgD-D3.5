@@ -1327,6 +1327,13 @@ public class AggiornaOggetti {
 				pgArmiObj.setDatiVariati(true);
 			}
 			break;
+		case NOME_ARMA:
+			if (pgArmiObj.getNomeArma().equals(valore)) {
+			} else {
+				pgArmiObj.setNomeArma((String) valore);
+				pgArmiObj.setDatiVariati(true);
+			}
+			break;
 		case TAGLIA:
 			if (pgArmiObj.getTaglia().equals(valore)) {
 			} else {

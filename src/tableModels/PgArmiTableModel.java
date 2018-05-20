@@ -13,20 +13,21 @@ public class PgArmiTableModel extends DefaultTableModel {
 	public PgArmiTableModel() {
 		super(new String[] { 
 				"Arma", // 0 String
-				"Taglia", // 1 String
-				"Qualità", // 2 String
-				"Mod.", // 3 Integer
-				"Incantamenti", // 4 String
-				"<html>Bonus<br>Incantamenti</html>", // 5 String
-				"Mod. al BAB", // 6 Integer
-				"<html>Mod. al<br>Danno</html>", // 7 Integer
-				"<html>Tenuta a<br>2 Mani</html>", // 8 Boolean
-				"Doppia Arma", // 9 Boolean
-				"<html>Primaria<br>Secondaria</html>", // 10 String
-				"Equipaggiata", // 11 Boolean
-				"Mod BAB Descrizione", //12 String
-				"Mod Danno Descrizione", //13 String
-				"Prg" // 14 Integer
+				"Nome", // 1 String
+				"Taglia", // 2 String
+				"Qualità", // 3 String
+				"Mod.", // 4 Integer
+				"Incantamenti", // 5 String
+				"<html>Bonus<br>Incantamenti</html>", // 6 String
+				"Mod. al BAB", // 7 Integer
+				"<html>Mod. al<br>Danno</html>", // 8 Integer
+				"<html>Tenuta a<br>2 Mani</html>", // 9 Boolean
+				"Doppia Arma", // 10 Boolean
+				"<html>Primaria<br>Secondaria</html>", // 11 String
+				"Equipaggiata", // 12 Boolean
+				"Mod BAB Descrizione", //13 String
+				"Mod Danno Descrizione", //14 String
+				"Prg" // 15 Integer
 		}, 0);
 	}
 
@@ -34,25 +35,25 @@ public class PgArmiTableModel extends DefaultTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 		Class classe = String.class;
 		switch (columnIndex) {
-		case 3:
-			classe = Integer.class;
-			break;
-		case 6:
+		case 4:
 			classe = Integer.class;
 			break;
 		case 7:
 			classe = Integer.class;
 			break;
 		case 8:
-			classe = Boolean.class;
+			classe = Integer.class;
 			break;
 		case 9:
 			classe = Boolean.class;
 			break;
-		case 11:
+		case 10:
 			classe = Boolean.class;
 			break;
-		case 13:
+		case 12:
+			classe = Boolean.class;
+			break;
+		case 14:
 			classe = Integer.class;
 			break;
 		}

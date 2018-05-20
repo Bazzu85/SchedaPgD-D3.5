@@ -907,6 +907,7 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 		tableAbilita.getColumnModel().getColumn(2).setPreferredWidth(200);
 		
 		TableColumnModel tcmAbilita = tableAbilita.getColumnModel();
+		tcmAbilita.removeColumn(tcmAbilita.getColumn(11));
 		tcmAbilita.removeColumn(tcmAbilita.getColumn(10));
 		tableAbilita.getTableHeader().addMouseListener(this);
 		tableAbilita.getTableHeader().setReorderingAllowed(false);
@@ -1186,7 +1187,7 @@ public class PgRiepilogoPanel extends JPanel implements MouseListener{
 
 		ArrayList<Integer> arrayDimensioni = opzioniObj.getDimensioniTablePgAbilita();
 
-		if (arrayDimensioni.size() > 0) {
+		if (arrayDimensioni.size() > 0 && tableAbilita.getColumnCount() == arrayDimensioni.size()) {
 			for (int i = 0; i < tableAbilita.getColumnCount(); i++) {
 				tableAbilita.getColumnModel().getColumn(i).setPreferredWidth(arrayDimensioni.get(i));
 			}
