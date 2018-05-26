@@ -197,6 +197,14 @@ public class AggiornaOggetti {
 				pgDatiObj.setDatiCommittati(false);
 			}
 			break;
+		case PX_DA_AGGIUNGERE:
+			if (pgDatiObj.getPxDaAggiungere() == Integer.parseInt((String) valore)) {
+			} else {
+				pgDatiObj.setPxDaAggiungere(Integer.parseInt((String) valore));
+				pgDatiObj.setDatiVariati(true);
+				pgDatiObj.setDatiCommittati(false);
+			}
+			break;
 		case ARRAY_BONUS:
 			ArrayList<PgBonusObj> arrayPgBonus = ((ArrayList<PgBonusObj>) valore);
 			boolean arrayBonusVariato = false;

@@ -26,9 +26,11 @@ import javax.swing.table.TableModel;
 import javax.swing.text.NumberFormatter;
 
 import Classi.AggiornaOggetti;
+import Classi.CalcolaDati;
 import Classi.Formati;
 import ENUM.ListaGestioneDati;
 import ENUM.ListaPgDati;
+import ENUM.ListaPgPuntiFerita;
 import gui.MainWindow;
 import gui.dialog.GestionePgClasseObjDialog;
 import json.GestioneJsonOpzioni;
@@ -38,6 +40,7 @@ import obj.PgClasseObj;
 import obj.PgDatiObj;
 import tableModels.PgClassiTableModel;
 import java.awt.event.MouseAdapter;
+import java.awt.event.FocusAdapter;
 
 public class PgClassiPanel extends JPanel implements FocusListener, ActionListener, MouseListener {
 
@@ -59,9 +62,12 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 	GestioneJsonPg gestioneJsonPg = new GestioneJsonPg();
 	GestioneJsonOpzioni gestioneJsonOpzioni = new GestioneJsonOpzioni();
 	OpzioniObj opzioniObj = new OpzioniObj();
+	CalcolaDati calcolaDati = new CalcolaDati();
 	private PgDatiObj pgDatiObj;
 	private MainWindow frame;
 	private JButton btnModificaClasse;
+	private JFormattedTextField formattedTextFieldPxDaAggiungere;
+	private JButton btnAggiungitogliPuntiEsperienza;
 
 	/**
 	 * Create the panel.
@@ -74,6 +80,7 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 		this.pgDatiObj = pgDatiObj;
 
 		NumberFormatter soloNumeri = formati.getSoloNumeri();
+		NumberFormatter soloNumeriConSegno = formati.getSoloNumeriConSegno();
 
 		GridBagLayout gbl_panelClassiPx = new GridBagLayout();
 		gbl_panelClassiPx.columnWidths = new int[] { 71, 82, 108, 112 };
@@ -133,16 +140,16 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 3;
+		gbc_panel_1.gridwidth = 4;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
 		this.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_1.columnWidths = new int[] { 0, 90, 90, 0, 0 };
 		gbl_panel_1.rowHeights = new int[] { 0, 0, 0, 0, 0 };
-		gbl_panel_1.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_1.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
@@ -156,7 +163,7 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 
 		formattedTextFieldLvlTotPg = new JFormattedTextField(soloNumeri);
 		GridBagConstraints gbc_formattedTextFieldLvlTotPg = new GridBagConstraints();
-		gbc_formattedTextFieldLvlTotPg.insets = new Insets(0, 0, 5, 0);
+		gbc_formattedTextFieldLvlTotPg.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldLvlTotPg.gridx = 1;
 		gbc_formattedTextFieldLvlTotPg.gridy = 0;
 		panel_1.add(formattedTextFieldLvlTotPg, gbc_formattedTextFieldLvlTotPg);
@@ -172,13 +179,33 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 		panel_1.add(lblPuntiEsperienza, gbc_lblPuntiEsperienza);
 
 		formattedTextFieldPx = new JFormattedTextField(soloNumeri);
+		formattedTextFieldPx.setEnabled(false);
+		formattedTextFieldPx.setEditable(false);
 		GridBagConstraints gbc_formattedTextFieldPx = new GridBagConstraints();
-		gbc_formattedTextFieldPx.insets = new Insets(0, 0, 5, 0);
+		gbc_formattedTextFieldPx.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldPx.gridx = 1;
 		gbc_formattedTextFieldPx.gridy = 1;
 		panel_1.add(formattedTextFieldPx, gbc_formattedTextFieldPx);
 		formattedTextFieldPx.addFocusListener(this);
 		formattedTextFieldPx.setColumns(10);
+
+		formattedTextFieldPxDaAggiungere = new JFormattedTextField(soloNumeriConSegno);
+		formattedTextFieldPxDaAggiungere.addFocusListener(this);
+		GridBagConstraints gbc_formattedTextFieldPxDaAggiungere = new GridBagConstraints();
+		gbc_formattedTextFieldPxDaAggiungere.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextFieldPxDaAggiungere.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextFieldPxDaAggiungere.gridx = 2;
+		gbc_formattedTextFieldPxDaAggiungere.gridy = 1;
+		panel_1.add(formattedTextFieldPxDaAggiungere, gbc_formattedTextFieldPxDaAggiungere);
+
+		btnAggiungitogliPuntiEsperienza = new JButton("Aggiungi/Togli Punti Esperienza");
+		btnAggiungitogliPuntiEsperienza.addActionListener(this);
+		GridBagConstraints gbc_btnAggiungitogliPuntiEsperienza = new GridBagConstraints();
+		gbc_btnAggiungitogliPuntiEsperienza.anchor = GridBagConstraints.WEST;
+		gbc_btnAggiungitogliPuntiEsperienza.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAggiungitogliPuntiEsperienza.gridx = 3;
+		gbc_btnAggiungitogliPuntiEsperienza.gridy = 1;
+		panel_1.add(btnAggiungitogliPuntiEsperienza, gbc_btnAggiungitogliPuntiEsperienza);
 
 		JLabel lblPuntiEsperienza_1 = new JLabel("Punti Esperienza per livello successivo:");
 		GridBagConstraints gbc_lblPuntiEsperienza_1 = new GridBagConstraints();
@@ -190,7 +217,7 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 
 		formattedTextFieldPxLvlSucc = new JFormattedTextField(soloNumeri);
 		GridBagConstraints gbc_formattedTextFieldPxLvlSucc = new GridBagConstraints();
-		gbc_formattedTextFieldPxLvlSucc.insets = new Insets(0, 0, 5, 0);
+		gbc_formattedTextFieldPxLvlSucc.insets = new Insets(0, 0, 5, 5);
 		gbc_formattedTextFieldPxLvlSucc.gridx = 1;
 		gbc_formattedTextFieldPxLvlSucc.gridy = 2;
 		panel_1.add(formattedTextFieldPxLvlSucc, gbc_formattedTextFieldPxLvlSucc);
@@ -207,12 +234,12 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 
 		formattedTextFieldPxPenalita = new JFormattedTextField(soloNumeri);
 		GridBagConstraints gbc_formattedTextFieldPxPenalita = new GridBagConstraints();
+		gbc_formattedTextFieldPxPenalita.insets = new Insets(0, 0, 0, 5);
 		gbc_formattedTextFieldPxPenalita.gridx = 1;
 		gbc_formattedTextFieldPxPenalita.gridy = 3;
 		panel_1.add(formattedTextFieldPxPenalita, gbc_formattedTextFieldPxPenalita);
 		formattedTextFieldPxPenalita.addFocusListener(this);
 		formattedTextFieldPxPenalita.setColumns(10);
-
 
 	}
 
@@ -255,6 +282,7 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 		formattedTextFieldPx.setValue(pgDatiObj.getPx());
 		formattedTextFieldPxLvlSucc.setText(String.valueOf(pgDatiObj.getPxLvlSucc()));
 		formattedTextFieldPxPenalita.setValue(pgDatiObj.getPxPenalita());
+		formattedTextFieldPxDaAggiungere.setValue(pgDatiObj.getPxDaAggiungere());
 
 	}
 
@@ -440,6 +468,10 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.PX_PENALITA,
 						formattedTextFieldPxPenalita.getText());
 			}
+			if ((JFormattedTextField) component == formattedTextFieldPxDaAggiungere) {
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.PX_DA_AGGIUNGERE,
+						formattedTextFieldPxDaAggiungere.getText());
+			}
 		}
 	}
 
@@ -456,6 +488,11 @@ public class PgClassiPanel extends JPanel implements FocusListener, ActionListen
 			}
 			if (((JButton) oggetto).getActionCommand() == btnModificaClasse.getActionCommand()) {
 				modificaClasse();
+			}
+			if (((JButton) oggetto).getActionCommand() == btnAggiungitogliPuntiEsperienza.getActionCommand()) {
+				pgDatiObj = calcolaDati.aggiungiPx(pgDatiObj);
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.PX_DA_AGGIUNGERE, "0");
+				frame.popolaFrame(pgDatiObj);
 			}
 
 		}

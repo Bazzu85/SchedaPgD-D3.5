@@ -7,10 +7,10 @@ import gui.dialog.GestionePgManovreObjDialog;
 import json.GestioneJsonOpzioni;
 import json.GestioneJsonPg;
 import obj.OpzioniObj;
+import obj.PgAbilitaObj;
 import obj.PgDatiObj;
 import obj.PgManovreObj;
 import tableModels.PgManovreTableModel;
-
 
 import java.awt.GridBagLayout;
 import javax.swing.JTable;
@@ -79,6 +79,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 	private JFormattedTextField formattedTextFieldManovrePronte;
 	private JLabel lblStanceConosciute;
 	private JFormattedTextField formattedTextFieldStanceConosciute;
+	private JButton btnRicaricaManovre;
 
 	/**
 	 * Create the panel.
@@ -93,15 +94,15 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		NumberFormatter soloNumeri = formati.getSoloNumeri();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 382, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.gridwidth = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
@@ -145,27 +146,35 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		btnCancellaRigaSelezionata = new JButton("Cancella Riga Selezionata");
 		btnCancellaRigaSelezionata.addActionListener(this);
 		GridBagConstraints gbc_btnCancellaRigaSelezionata = new GridBagConstraints();
-		gbc_btnCancellaRigaSelezionata.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCancellaRigaSelezionata.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancellaRigaSelezionata.anchor = GridBagConstraints.WEST;
 		gbc_btnCancellaRigaSelezionata.gridx = 2;
 		gbc_btnCancellaRigaSelezionata.gridy = 1;
 		add(btnCancellaRigaSelezionata, gbc_btnCancellaRigaSelezionata);
-		
+
+		btnRicaricaManovre = new JButton("Ricarica Manovre");
+		btnRicaricaManovre.addActionListener(this);
+		GridBagConstraints gbc_btnRicaricaManovre = new GridBagConstraints();
+		gbc_btnRicaricaManovre.anchor = GridBagConstraints.WEST;
+		gbc_btnRicaricaManovre.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRicaricaManovre.gridx = 3;
+		gbc_btnRicaricaManovre.gridy = 1;
+		add(btnRicaricaManovre, gbc_btnRicaricaManovre);
+
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 3;
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.gridwidth = 4;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 2;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 50, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] { 0, 50, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		lblManovreConosciute = new JLabel("Manovre Conosciute:");
 		GridBagConstraints gbc_lblManovreConosciute = new GridBagConstraints();
 		gbc_lblManovreConosciute.insets = new Insets(0, 0, 5, 5);
@@ -173,7 +182,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_lblManovreConosciute.gridx = 0;
 		gbc_lblManovreConosciute.gridy = 0;
 		panel.add(lblManovreConosciute, gbc_lblManovreConosciute);
-		
+
 		formattedTextFieldManovreConosciute = new JFormattedTextField(soloNumeri);
 		formattedTextFieldManovreConosciute.addFocusListener(this);
 		GridBagConstraints gbc_formattedTextFieldManovreConosciute = new GridBagConstraints();
@@ -182,7 +191,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_formattedTextFieldManovreConosciute.gridx = 1;
 		gbc_formattedTextFieldManovreConosciute.gridy = 0;
 		panel.add(formattedTextFieldManovreConosciute, gbc_formattedTextFieldManovreConosciute);
-		
+
 		lblManovrePronte = new JLabel("Manovre Pronte:");
 		GridBagConstraints gbc_lblManovrePronte = new GridBagConstraints();
 		gbc_lblManovrePronte.anchor = GridBagConstraints.EAST;
@@ -190,7 +199,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_lblManovrePronte.gridx = 0;
 		gbc_lblManovrePronte.gridy = 1;
 		panel.add(lblManovrePronte, gbc_lblManovrePronte);
-		
+
 		formattedTextFieldManovrePronte = new JFormattedTextField(soloNumeri);
 		formattedTextFieldManovrePronte.addFocusListener(this);
 		GridBagConstraints gbc_formattedTextFieldManovrePronte = new GridBagConstraints();
@@ -199,7 +208,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_formattedTextFieldManovrePronte.gridx = 1;
 		gbc_formattedTextFieldManovrePronte.gridy = 1;
 		panel.add(formattedTextFieldManovrePronte, gbc_formattedTextFieldManovrePronte);
-		
+
 		lblStanceConosciute = new JLabel("Stance Conosciute:");
 		GridBagConstraints gbc_lblStanceConosciute = new GridBagConstraints();
 		gbc_lblStanceConosciute.anchor = GridBagConstraints.EAST;
@@ -207,7 +216,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_lblStanceConosciute.gridx = 0;
 		gbc_lblStanceConosciute.gridy = 2;
 		panel.add(lblStanceConosciute, gbc_lblStanceConosciute);
-		
+
 		formattedTextFieldStanceConosciute = new JFormattedTextField(soloNumeri);
 		formattedTextFieldStanceConosciute.addFocusListener(this);
 		GridBagConstraints gbc_formattedTextFieldStanceConosciute = new GridBagConstraints();
@@ -215,7 +224,6 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		gbc_formattedTextFieldStanceConosciute.gridx = 1;
 		gbc_formattedTextFieldStanceConosciute.gridy = 2;
 		panel.add(formattedTextFieldStanceConosciute, gbc_formattedTextFieldStanceConosciute);
-
 
 	}
 
@@ -239,17 +247,9 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 
 		for (int i = 0; i < arrayPgManovre.size(); i++) {
 			PgManovreObj pgManovreObj = arrayPgManovre.get(i);
-			((DefaultTableModel) model).addRow(
-					new Object[] { 
-							pgManovreObj.getNome(), 
-							pgManovreObj.getTipo(), 
-							pgManovreObj.getDisciplina(), 
-							pgManovreObj.getLvl(), 
-							pgManovreObj.isPronta(), 
-							pgManovreObj.isDaUsare(), 
-							pgManovreObj.getDescrizione(), 
-							pgManovreObj.getPrg() 
-							});
+			((DefaultTableModel) model).addRow(new Object[] { pgManovreObj.getNome(), pgManovreObj.getTipo(),
+					pgManovreObj.getDisciplina(), pgManovreObj.getLvl(), pgManovreObj.isPronta(),
+					pgManovreObj.isDaUsare(), pgManovreObj.getDescrizione(), pgManovreObj.getPrg() });
 		}
 		if (tableManovre.getRowCount() > 0) {
 			if (rigaSelezionata == -1) {
@@ -262,10 +262,11 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		}
 
 		// Calcolo altezza riga sulla base del contenuto della descrizione
-		for (int i=0; i < tableManovre.getRowCount(); i++){
+		for (int i = 0; i < tableManovre.getRowCount(); i++) {
 			JTextArea jTextArea = new JTextArea();
 			jTextArea.setText(tableManovre.getModel().getValueAt(i, 6).toString());
-			//L'altezza base della riga è 16 (almeno da quanto testato). Moltiplichiamo per il numero righe
+			// L'altezza base della riga è 16 (almeno da quanto testato).
+			// Moltiplichiamo per il numero righe
 			int rowHeight = 16 * jTextArea.getLineCount();
 			tableManovre.setRowHeight(i, rowHeight);
 
@@ -316,8 +317,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 							&& pgManovreObj.getLvl() == pgManovreObjOriginale.getLvl()
 							&& pgManovreObj.isPronta() == pgManovreObjOriginale.isPronta()
 							&& pgManovreObj.isDaUsare() == pgManovreObjOriginale.isDaUsare()
-							&& pgManovreObj.getDescrizione().equals(pgManovreObjOriginale.getDescrizione())
-							) {
+							&& pgManovreObj.getDescrizione().equals(pgManovreObjOriginale.getDescrizione())) {
 
 					} else {
 						pgManovreObj.setDatiVariati(true);
@@ -340,8 +340,8 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 			pgManovreObj.setPrg(arrayManovre.get(ultimoRecord).getPrg() + 1);
 		}
 
-		GestionePgManovreObjDialog gestionePgManovreObjDialog = new GestionePgManovreObjDialog(ListaGestioneDati.INSERISCI,
-				pgDatiObj.getId(), pgManovreObj);
+		GestionePgManovreObjDialog gestionePgManovreObjDialog = new GestionePgManovreObjDialog(
+				ListaGestioneDati.INSERISCI, pgDatiObj.getId(), pgManovreObj);
 		gestionePgManovreObjDialog.setVisible(true);
 		if (gestionePgManovreObjDialog.isRigaGestita()) {
 			pgManovreObj = gestionePgManovreObjDialog.getPgManovreObj();
@@ -352,13 +352,13 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 	}
 
 	private void modificaManovra() {
-				
+
 		if (tableManovre.getSelectedRow() != -1) {
 
 			ArrayList<PgManovreObj> arrayManovre = creaArrayManovre();
 
-			GestionePgManovreObjDialog gestionePgManovreObjDialog = new GestionePgManovreObjDialog(ListaGestioneDati.MODIFICA,
-					pgDatiObj.getId(), arrayManovre.get(tableManovre.getSelectedRow()));
+			GestionePgManovreObjDialog gestionePgManovreObjDialog = new GestionePgManovreObjDialog(
+					ListaGestioneDati.MODIFICA, pgDatiObj.getId(), arrayManovre.get(tableManovre.getSelectedRow()));
 			gestionePgManovreObjDialog.setVisible(true);
 			if (gestionePgManovreObjDialog.isRigaGestita()) {
 				PgManovreObj pgManovreObj = gestionePgManovreObjDialog.getPgManovreObj();
@@ -375,7 +375,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 	}
 
 	private void cancellaRigaTableManovre() {
-		
+
 		if (tableManovre.getSelectedRow() != -1) {
 			((DefaultTableModel) tableManovre.getModel()).removeRow(tableManovre.getSelectedRow());
 
@@ -388,6 +388,27 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 			frame.popolaFrame(pgDatiObj);
 
 		}
+	}
+
+	private void ricaricaManovre() {
+			ArrayList<PgManovreObj> arrayManovre = creaArrayManovre();
+
+			// Scorro la lista delle manovre e flaggo in automatico quelle pronte
+			boolean arrayModificato = false;
+			for (int i=0; i < arrayManovre.size(); i++){
+				PgManovreObj pgManovreObj = arrayManovre.get(i);
+				if (pgManovreObj.isPronta() && pgManovreObj.getTipo().equals("Manovra")){
+					pgManovreObj.setDaUsare(true);
+					pgManovreObj.setDatiVariati(true);
+					arrayManovre.set(i, pgManovreObj);
+					arrayModificato = true;
+				}
+			}
+			if (arrayModificato){
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.ARRAY_MANOVRE, arrayManovre);
+				frame.popolaFrame(pgDatiObj);
+			}
+			
 	}
 
 	private void caricaDimensioniTableManovre(ArrayList<Integer> arrayDimensioni) {
@@ -418,7 +439,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 		frame.popolaFrame(pgDatiObj);
 
 	}
-	
+
 	public MainWindow getFrame() {
 		return frame;
 	}
@@ -435,21 +456,26 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 	@Override
 	public void focusLost(FocusEvent e) {
 		Component component = e.getComponent();
-		
+
+		if (component instanceof JTable) {
+			if ((JTable) component == tableManovre) {
+
+				ArrayList<PgManovreObj> arrayManovre = creaArrayManovre();
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.ARRAY_MANOVRE, arrayManovre);
+				frame.popolaFrame(pgDatiObj);
+			}
+		}
 		if (component instanceof JFormattedTextField) {
 			if ((JFormattedTextField) component == formattedTextFieldManovreConosciute) {
-				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
-						ListaPgDati.MANOVRE_CONOSCIUTE,
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.MANOVRE_CONOSCIUTE,
 						formattedTextFieldManovreConosciute.getText());
 			}
 			if ((JFormattedTextField) component == formattedTextFieldManovrePronte) {
-				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
-						ListaPgDati.MANOVRE_PRONTE,
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.MANOVRE_PRONTE,
 						formattedTextFieldManovrePronte.getText());
 			}
 			if ((JFormattedTextField) component == formattedTextFieldStanceConosciute) {
-				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
-						ListaPgDati.STANCE_CONOSCIUTE,
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.STANCE_CONOSCIUTE,
 						formattedTextFieldStanceConosciute.getText());
 			}
 		}
@@ -470,23 +496,25 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 			if (((JButton) oggetto).getActionCommand() == btnModificaManovra.getActionCommand()) {
 				modificaManovra();
 			}
-
+			if (((JButton) oggetto).getActionCommand() == btnRicaricaManovre.getActionCommand()) {
+				ricaricaManovre();
+			}
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+
 	}
 
 	@Override
@@ -508,7 +536,7 @@ public class PgManovrePanel extends JPanel implements FocusListener, ActionListe
 			if ((JTableHeader) component == tableManovre.getTableHeader()) {
 				salvaDimensioniTableManovre();
 			}
-		}		
+		}
 	}
 
 }

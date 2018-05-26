@@ -26,6 +26,7 @@ public class PgDatiObj{
 	int px = 0;
 	int pxLvlSucc = 0;
 	int pxPenalita = 0;
+	int pxDaAggiungere = 0;
 
 	ArrayList<PgBonusObj> arrayBonus = new ArrayList<PgBonusObj>();
 	PgBonusCalcolati pgBonusCalcolati = new PgBonusCalcolati();
@@ -254,6 +255,14 @@ public class PgDatiObj{
 
 	public void setPxPenalita(int pxPenalita) {
 		this.pxPenalita = pxPenalita;
+	}
+
+	public int getPxDaAggiungere() {
+		return pxDaAggiungere;
+	}
+
+	public void setPxDaAggiungere(int pxDaAggiungere) {
+		this.pxDaAggiungere = pxDaAggiungere;
 	}
 
 	public ArrayList<PgBonusObj> getArrayBonus() {

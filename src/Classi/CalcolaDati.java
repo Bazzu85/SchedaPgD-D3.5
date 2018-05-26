@@ -1000,4 +1000,16 @@ public class CalcolaDati {
 		return pgDatiObj;
 	}
 
+
+
+	public PgDatiObj aggiungiPx(PgDatiObj pgDatiObj) {
+		int pxAttuale = pgDatiObj.getPx();
+		pxAttuale = pxAttuale + pgDatiObj.getPxDaAggiungere();
+		pgDatiObj.setPx(pxAttuale);
+		pgDatiObj.setDatiVariati(true);
+		pgDatiObj.setDatiCommittati(false);
+
+		return pgDatiObj;
+	}
+
 }
