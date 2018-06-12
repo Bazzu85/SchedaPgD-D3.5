@@ -37,7 +37,7 @@ public class CalcolaDati {
 		pgDatiObj = calcolaIniziativa(pgDatiObj);
 		pgDatiObj = calcolaArmi(pgDatiObj);
 		pgDatiObj = calcolaAbilita(pgDatiObj);
-		pgDatiObj = calcolaPesi(pgDatiObj);
+		pgDatiObj = calcolaEquipPesi(pgDatiObj);
 		pgDatiObj = calcolaMovimento(pgDatiObj);
 		pgDatiObj = calcolaCarico(pgDatiObj);
 
@@ -562,7 +562,7 @@ public class CalcolaDati {
 		return pgDatiObj;
 	}
 
-	private PgDatiObj calcolaPesi(PgDatiObj pgDatiObj) {
+	private PgDatiObj calcolaEquipPesi(PgDatiObj pgDatiObj) {
 
 		ArrayList<PgEquipObj> arrayEquip = pgDatiObj.getArrayEquip();
 
@@ -571,8 +571,28 @@ public class CalcolaDati {
 		Double totalePesiTascaDaCintura = 0.00;
 		Double totalePesiAltro = 0.00;
 		Double totalePesi = 0.00;
+		
+		Double totaleValoreIndossato = 0.00;
+		Double totaleValoreZaino = 0.00;
+		Double totaleValoreTascaDaCintura = 0.00;
+		Double totaleValoreAltro = 0.00;
+		Double totaleValore = 0.00;
+		
 		for (int i = 0; i < arrayEquip.size(); i++) {
 			PgEquipObj pgEquipObj = arrayEquip.get(i);
+			
+			// Per passaggio temporaneo
+			if (pgEquipObj.getPeso() > 0 && pgEquipObj.getPesoUnitario() == 0){
+				pgEquipObj.setPesoUnitario(pgEquipObj.getPeso());
+			}
+			if (pgEquipObj.getValore() > 0 && pgEquipObj.getValoreUnitario() == 0){
+				pgEquipObj.setValoreUnitario(pgEquipObj.getValore());
+			}
+			
+			// Calcolo peso e valore per l'oggetto
+			pgEquipObj.setPeso(calcolaPeso(pgEquipObj.getPesoUnitario(), pgEquipObj.getNumero()));
+			pgEquipObj.setValore(calcolaValore(pgEquipObj.getValoreUnitario(), pgEquipObj.getNumero()));
+			
 			if (pgEquipObj.getPeso() > 0) {
 				if (pgEquipObj.isIndossato()) {
 					totalePesiIndossato = totalePesiIndossato + pgEquipObj.getPeso();
@@ -587,6 +607,23 @@ public class CalcolaDati {
 					totalePesiAltro = totalePesiAltro + pgEquipObj.getPeso();
 				}
 				totalePesi = totalePesi + pgEquipObj.getPeso();
+				
+				if (pgEquipObj.getValore() > 0) {
+					if (pgEquipObj.isIndossato()) {
+						totaleValoreIndossato = totaleValoreIndossato + pgEquipObj.getValore();
+					}
+					if (pgEquipObj.isZaino()) {
+						totaleValoreZaino = totaleValoreZaino + pgEquipObj.getValore();
+					}
+					if (pgEquipObj.isTascaDaCintura()) {
+						totaleValoreTascaDaCintura = totaleValoreTascaDaCintura + pgEquipObj.getValore();
+					}
+					if (pgEquipObj.isAltro()) {
+						totaleValoreAltro = totaleValoreAltro + pgEquipObj.getValore();
+					}
+					totaleValore = totaleValore + pgEquipObj.getValore();
+				}
+
 			}
 		}
 
@@ -596,8 +633,43 @@ public class CalcolaDati {
 		pgDatiObj.setTotalePesiAltro(totalePesiAltro);
 		pgDatiObj.setTotalePesi(totalePesi);
 
+		pgDatiObj.setTotaleValoreIndossato(totaleValoreIndossato);
+		pgDatiObj.setTotaleValoreZaino(totaleValoreZaino);
+		pgDatiObj.setTotaleValoreTascaDaCintura(totaleValoreTascaDaCintura);
+		pgDatiObj.setTotaleValoreAltro(totaleValoreAltro);
+		pgDatiObj.setTotaleValore(totaleValore);
+
 		return pgDatiObj;
 	}
+
+	public Double calcolaPeso(Double pesoUnitario, int numero) {
+		
+		Double peso = 0.00;
+		// Calcolo peso totale per l'oggetto
+		if (pesoUnitario > 0.00){
+			if (numero > 0){
+				peso = pesoUnitario * numero;
+			} else {
+				peso = pesoUnitario;
+			}
+		}		
+		return peso;
+	}
+
+	public Double calcolaValore(Double valoreUnitario, int numero) {
+		
+		Double valore = 0.00;
+		// Calcolo peso totale per l'oggetto
+		if (valoreUnitario > 0.00){
+			if (numero > 0){
+				valore = valoreUnitario * numero;
+			} else {
+				valore = valoreUnitario;
+			}
+		}		
+		return valore;
+	}
+
 
 	private PgDatiObj calcolaMovimento(PgDatiObj pgDatiObj) {
 		PgMovimentoObj pgMovimentoObj = pgDatiObj.getPgMovimentoObj();

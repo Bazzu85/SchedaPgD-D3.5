@@ -14,13 +14,16 @@ public class PgEquipTableModel extends DefaultTableModel {
 
 	public PgEquipTableModel() {
 		super(new String[] { "Nome", // 0 String
-				"Numero", // 1 Integer
-				"Peso", // 2 Double
-				"Indossato", // 3 Boolean
-				"Zaino", // 4 Boolean
-				"<html>Tasca da<br>Cintura</html>", // 5 Boolean
-				"Altro", // 6 Boolean
-				"#" // 7 Integer
+				"Peso Unitario", // 1 Double
+				"Valore Unitario", // 2 Double
+				"Numero", // 3 Integer
+				"Peso", // 4 Double
+				"Valore", // 5 Double
+				"Indossato", // 6 Boolean
+				"Zaino", // 7 Boolean
+				"<html>Tasca da<br>Cintura</html>", // 8 Boolean
+				"Altro", // 9 Boolean
+				"#" // 10 Integer
 		}, 0);
 	}
 
@@ -29,24 +32,33 @@ public class PgEquipTableModel extends DefaultTableModel {
 		Class classe = String.class;
 		switch (columnIndex) {
 		case 1:
-			classe = Integer.class;
+			classe = Double.class;
 			break;
 		case 2:
 			classe = Double.class;
 			break;
 		case 3:
-			classe = Boolean.class;
+			classe = Integer.class;
 			break;
 		case 4:
-			classe = Boolean.class;
+			classe = Double.class;
 			break;
 		case 5:
-			classe = Boolean.class;
+			classe = Double.class;
 			break;
 		case 6:
 			classe = Boolean.class;
 			break;
 		case 7:
+			classe = Boolean.class;
+			break;
+		case 8:
+			classe = Boolean.class;
+			break;
+		case 9:
+			classe = Boolean.class;
+			break;
+		case 10:
 			classe = Integer.class;
 			break;
 		}

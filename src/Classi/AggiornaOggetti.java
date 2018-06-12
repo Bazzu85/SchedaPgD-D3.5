@@ -2036,6 +2036,28 @@ public class AggiornaOggetti {
 				pgEquipObj.setDatiVariati(true);
 			}
 			break;
+		case PESO_UNITARIO:
+			if (((String) valore).trim().isEmpty()) {
+				pgEquipObj.setPesoUnitario(0.00);
+			} else {
+				if (pgEquipObj.getPesoUnitario() == Double.parseDouble((String) valore)) {
+				} else {
+					pgEquipObj.setPesoUnitario(Double.parseDouble((String) valore));
+					pgEquipObj.setDatiVariati(true);
+				}
+			}
+			break;
+		case VALORE_UNITARIO:
+			if (((String) valore).trim().isEmpty()) {
+				pgEquipObj.setValoreUnitario(0.00);
+			} else {
+				if (pgEquipObj.getValoreUnitario() == Double.parseDouble((String) valore)) {
+				} else {
+					pgEquipObj.setValoreUnitario(Double.parseDouble((String) valore));
+					pgEquipObj.setDatiVariati(true);
+				}
+			}
+			break;
 		case NUMERO:
 			if (((String) valore).trim().isEmpty()) {
 				pgEquipObj.setNumero(0);
@@ -2054,6 +2076,17 @@ public class AggiornaOggetti {
 				if (pgEquipObj.getPeso() == Double.parseDouble((String) valore)) {
 				} else {
 					pgEquipObj.setPeso(Double.parseDouble((String) valore));
+					pgEquipObj.setDatiVariati(true);
+				}
+			}
+			break;
+		case VALORE:
+			if (((String) valore).trim().isEmpty()) {
+				pgEquipObj.setValore(0.00);
+			} else {
+				if (pgEquipObj.getValore() == Double.parseDouble((String) valore)) {
+				} else {
+					pgEquipObj.setValore(Double.parseDouble((String) valore));
 					pgEquipObj.setDatiVariati(true);
 				}
 			}

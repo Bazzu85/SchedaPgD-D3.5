@@ -55,6 +55,12 @@ public class PgDatiObj{
 	Double totalePesiTascaDaCintura = 0.00;
 	Double totalePesiAltro = 0.00;
 	Double totalePesi = 0.00;
+	Double totaleValoreIndossato = 0.00;
+	Double totaleValoreZaino = 0.00;
+	Double totaleValoreTascaDaCintura = 0.00;
+	Double totaleValoreAltro = 0.00;
+	Double totaleValore = 0.00;
+
 	PgMovimentoObj pgMovimentoObj = new PgMovimentoObj();
 	PgCaricoObj pgCaricoObj = new PgCaricoObj();
 	int manovreConosciute = 0;
@@ -464,6 +470,46 @@ public class PgDatiObj{
 
 	public void setTotalePesi(Double totalePesi) {
 		this.totalePesi = totalePesi;
+	}
+
+	public Double getTotaleValoreIndossato() {
+		return totaleValoreIndossato;
+	}
+
+	public void setTotaleValoreIndossato(Double totaleValoreIndossato) {
+		this.totaleValoreIndossato = totaleValoreIndossato;
+	}
+
+	public Double getTotaleValoreZaino() {
+		return totaleValoreZaino;
+	}
+
+	public void setTotaleValoreZaino(Double totaleValoreZaino) {
+		this.totaleValoreZaino = totaleValoreZaino;
+	}
+
+	public Double getTotaleValoreTascaDaCintura() {
+		return totaleValoreTascaDaCintura;
+	}
+
+	public void setTotaleValoreTascaDaCintura(Double totaleValoreTascaDaCintura) {
+		this.totaleValoreTascaDaCintura = totaleValoreTascaDaCintura;
+	}
+
+	public Double getTotaleValoreAltro() {
+		return totaleValoreAltro;
+	}
+
+	public void setTotaleValoreAltro(Double totaleValoreAltro) {
+		this.totaleValoreAltro = totaleValoreAltro;
+	}
+
+	public Double getTotaleValore() {
+		return totaleValore;
+	}
+
+	public void setTotaleValore(Double totaleValore) {
+		this.totaleValore = totaleValore;
 	}
 
 	public PgMovimentoObj getPgMovimentoObj() {

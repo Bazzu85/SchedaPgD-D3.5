@@ -48,7 +48,8 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
-public class PgEquipPanel extends JPanel implements FocusListener, ActionListener, MouseListener {
+public class PgEquipPanel extends JPanel implements FocusListener,
+		ActionListener, MouseListener {
 
 	/**
 	 * 
@@ -78,6 +79,18 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 	private JTextField textFieldTotalePesiAltro;
 	private JLabel lblTotalePesiSul;
 	private JTextField textFieldTotalePesi;
+	private JPanel panelValore;
+	private JLabel lblTotaleValore;
+	private JLabel lblIndossato_1;
+	private JLabel lblZaino_1;
+	private JLabel lblTascaDaCintura_1;
+	private JLabel lblAltro_1;
+	private JTextField textFieldTotaleValoreIndossato;
+	private JTextField textFieldTotaleValoreZaino;
+	private JTextField textFieldTotaleValoreTascaDaCintura;
+	private JTextField textFieldTotaleValoreAltro;
+	private JLabel lblTotaleValoreSul;
+	private JTextField textFieldTotaleValore;
 
 	/**
 	 * Create the panel.
@@ -91,9 +104,11 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 40, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowHeights = new int[] { 40, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		JScrollPane scrollPaneEquip = new JScrollPane();
@@ -108,18 +123,17 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		tableEquip = new JTable();
 		tableEquip.addMouseListener(this);
 		tableEquip.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//		tableEquip.setPreferredScrollableViewportSize(new Dimension(0, 0));
+		// tableEquip.setPreferredScrollableViewportSize(new Dimension(0, 0));
 
 		tableEquip.setFillsViewportHeight(true);
 		tableEquip.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableEquip.addFocusListener(this);
 		PgEquipTableModel equipTableModel = new PgEquipTableModel();
 		tableEquip.setModel(equipTableModel);
-		
 
 		scrollPaneEquip.setViewportView(tableEquip);
 		TableColumnModel tcm = tableEquip.getColumnModel();
-		tcm.removeColumn(tcm.getColumn(7));
+		tcm.removeColumn(tcm.getColumn(10));
 
 		tableEquip.getTableHeader().addMouseListener(this);
 		tableEquip.getTableHeader().setReorderingAllowed(false);
@@ -149,50 +163,52 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_btnCancellaRigaSelezionata.gridx = 2;
 		gbc_btnCancellaRigaSelezionata.gridy = 1;
 		add(btnCancellaRigaSelezionata, gbc_btnCancellaRigaSelezionata);
-		
+
 		panelPesi = new JPanel();
 		GridBagConstraints gbc_panelPesi = new GridBagConstraints();
+		gbc_panelPesi.insets = new Insets(0, 0, 5, 0);
 		gbc_panelPesi.gridwidth = 3;
-		gbc_panelPesi.insets = new Insets(0, 0, 0, 5);
 		gbc_panelPesi.fill = GridBagConstraints.BOTH;
 		gbc_panelPesi.gridx = 0;
 		gbc_panelPesi.gridy = 2;
 		add(panelPesi, gbc_panelPesi);
 		GridBagLayout gbl_panelPesi = new GridBagLayout();
-		gbl_panelPesi.columnWidths = new int[]{0, 70, 70, 70, 70, 0, 0};
-		gbl_panelPesi.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_panelPesi.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panelPesi.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelPesi.columnWidths = new int[] { 70, 70, 70, 70, 70, 0, 0 };
+		gbl_panelPesi.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panelPesi.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				1.0, Double.MIN_VALUE };
+		gbl_panelPesi.rowWeights = new double[] { 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		panelPesi.setLayout(gbl_panelPesi);
-		
+
 		lblIndossato = new JLabel("Indossato");
 		GridBagConstraints gbc_lblIndossato = new GridBagConstraints();
 		gbc_lblIndossato.insets = new Insets(0, 0, 5, 5);
 		gbc_lblIndossato.gridx = 1;
 		gbc_lblIndossato.gridy = 0;
 		panelPesi.add(lblIndossato, gbc_lblIndossato);
-		
+
 		lblZaino = new JLabel("Zaino");
 		GridBagConstraints gbc_lblZaino = new GridBagConstraints();
 		gbc_lblZaino.insets = new Insets(0, 0, 5, 5);
 		gbc_lblZaino.gridx = 2;
 		gbc_lblZaino.gridy = 0;
 		panelPesi.add(lblZaino, gbc_lblZaino);
-		
+
 		lblTascaDaCintura = new JLabel("Tasca Da Cintura");
 		GridBagConstraints gbc_lblTascaDaCintura = new GridBagConstraints();
 		gbc_lblTascaDaCintura.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTascaDaCintura.gridx = 3;
 		gbc_lblTascaDaCintura.gridy = 0;
 		panelPesi.add(lblTascaDaCintura, gbc_lblTascaDaCintura);
-		
+
 		lblAltro = new JLabel("Altro");
 		GridBagConstraints gbc_lblAltro = new GridBagConstraints();
 		gbc_lblAltro.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAltro.gridx = 4;
 		gbc_lblAltro.gridy = 0;
 		panelPesi.add(lblAltro, gbc_lblAltro);
-		
+
 		lblTotalePesi = new JLabel("Totale Pesi:");
 		GridBagConstraints gbc_lblTotalePesi = new GridBagConstraints();
 		gbc_lblTotalePesi.anchor = GridBagConstraints.EAST;
@@ -200,9 +216,10 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_lblTotalePesi.gridx = 0;
 		gbc_lblTotalePesi.gridy = 1;
 		panelPesi.add(lblTotalePesi, gbc_lblTotalePesi);
-		
+
 		textFieldTotalePesiIndossato = new JTextField();
-		textFieldTotalePesiIndossato.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldTotalePesiIndossato
+				.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldTotalePesiIndossato.setEnabled(false);
 		textFieldTotalePesiIndossato.setEditable(false);
 		GridBagConstraints gbc_textFieldTotalePesiIndossato = new GridBagConstraints();
@@ -210,9 +227,10 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_textFieldTotalePesiIndossato.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldTotalePesiIndossato.gridx = 1;
 		gbc_textFieldTotalePesiIndossato.gridy = 1;
-		panelPesi.add(textFieldTotalePesiIndossato, gbc_textFieldTotalePesiIndossato);
+		panelPesi.add(textFieldTotalePesiIndossato,
+				gbc_textFieldTotalePesiIndossato);
 		textFieldTotalePesiIndossato.setColumns(10);
-		
+
 		textFieldTotalePesiZaino = new JTextField();
 		textFieldTotalePesiZaino.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldTotalePesiZaino.setEnabled(false);
@@ -224,9 +242,10 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_textFieldTotalePesiZaino.gridx = 2;
 		gbc_textFieldTotalePesiZaino.gridy = 1;
 		panelPesi.add(textFieldTotalePesiZaino, gbc_textFieldTotalePesiZaino);
-		
+
 		textFieldTotalePesiTascaDaCintura = new JTextField();
-		textFieldTotalePesiTascaDaCintura.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldTotalePesiTascaDaCintura
+				.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldTotalePesiTascaDaCintura.setEnabled(false);
 		textFieldTotalePesiTascaDaCintura.setEditable(false);
 		textFieldTotalePesiTascaDaCintura.setColumns(10);
@@ -235,8 +254,9 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_textFieldTotalePesiTascaDaCintura.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldTotalePesiTascaDaCintura.gridx = 3;
 		gbc_textFieldTotalePesiTascaDaCintura.gridy = 1;
-		panelPesi.add(textFieldTotalePesiTascaDaCintura, gbc_textFieldTotalePesiTascaDaCintura);
-		
+		panelPesi.add(textFieldTotalePesiTascaDaCintura,
+				gbc_textFieldTotalePesiTascaDaCintura);
+
 		textFieldTotalePesiAltro = new JTextField();
 		textFieldTotalePesiAltro.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldTotalePesiAltro.setEnabled(false);
@@ -248,26 +268,145 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		gbc_textFieldTotalePesiAltro.gridx = 4;
 		gbc_textFieldTotalePesiAltro.gridy = 1;
 		panelPesi.add(textFieldTotalePesiAltro, gbc_textFieldTotalePesiAltro);
-		
+
 		lblTotalePesiSul = new JLabel("Totale Pesi Sul Pg:");
 		GridBagConstraints gbc_lblTotalePesiSul = new GridBagConstraints();
 		gbc_lblTotalePesiSul.gridwidth = 2;
 		gbc_lblTotalePesiSul.insets = new Insets(0, 0, 0, 5);
 		gbc_lblTotalePesiSul.gridx = 0;
-		gbc_lblTotalePesiSul.gridy = 3;
+		gbc_lblTotalePesiSul.gridy = 2;
 		panelPesi.add(lblTotalePesiSul, gbc_lblTotalePesiSul);
-		
+
 		textFieldTotalePesi = new JTextField();
 		textFieldTotalePesi.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldTotalePesi.setEnabled(false);
 		textFieldTotalePesi.setEditable(false);
 		textFieldTotalePesi.setColumns(10);
 		GridBagConstraints gbc_textFieldTotalePesi = new GridBagConstraints();
-		gbc_textFieldTotalePesi.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTotalePesi.insets = new Insets(0, 0, 0, 5);
 		gbc_textFieldTotalePesi.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldTotalePesi.gridx = 2;
-		gbc_textFieldTotalePesi.gridy = 3;
+		gbc_textFieldTotalePesi.gridy = 2;
 		panelPesi.add(textFieldTotalePesi, gbc_textFieldTotalePesi);
+		
+		panelValore = new JPanel();
+		GridBagConstraints gbc_panelValore = new GridBagConstraints();
+		gbc_panelValore.anchor = GridBagConstraints.WEST;
+		gbc_panelValore.gridwidth = 3;
+		gbc_panelValore.insets = new Insets(0, 0, 0, 5);
+		gbc_panelValore.fill = GridBagConstraints.VERTICAL;
+		gbc_panelValore.gridx = 0;
+		gbc_panelValore.gridy = 3;
+		add(panelValore, gbc_panelValore);
+		GridBagLayout gbl_panelValore = new GridBagLayout();
+		gbl_panelValore.columnWidths = new int[]{70, 70, 70, 70, 70, 0};
+		gbl_panelValore.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panelValore.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelValore.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelValore.setLayout(gbl_panelValore);
+		
+		lblIndossato_1 = new JLabel("Indossato");
+		GridBagConstraints gbc_lblIndossato_1 = new GridBagConstraints();
+		gbc_lblIndossato_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIndossato_1.gridx = 1;
+		gbc_lblIndossato_1.gridy = 0;
+		panelValore.add(lblIndossato_1, gbc_lblIndossato_1);
+		
+		lblZaino_1 = new JLabel("Zaino");
+		GridBagConstraints gbc_lblZaino_1 = new GridBagConstraints();
+		gbc_lblZaino_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblZaino_1.gridx = 2;
+		gbc_lblZaino_1.gridy = 0;
+		panelValore.add(lblZaino_1, gbc_lblZaino_1);
+		
+		lblTascaDaCintura_1 = new JLabel("Tasca da Cintura");
+		GridBagConstraints gbc_lblTascaDaCintura_1 = new GridBagConstraints();
+		gbc_lblTascaDaCintura_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTascaDaCintura_1.gridx = 3;
+		gbc_lblTascaDaCintura_1.gridy = 0;
+		panelValore.add(lblTascaDaCintura_1, gbc_lblTascaDaCintura_1);
+		
+		lblAltro_1 = new JLabel("Altro");
+		GridBagConstraints gbc_lblAltro_1 = new GridBagConstraints();
+		gbc_lblAltro_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblAltro_1.gridx = 4;
+		gbc_lblAltro_1.gridy = 0;
+		panelValore.add(lblAltro_1, gbc_lblAltro_1);
+		
+		lblTotaleValore = new JLabel("Totale Valore:");
+		GridBagConstraints gbc_lblTotaleValore = new GridBagConstraints();
+		gbc_lblTotaleValore.anchor = GridBagConstraints.EAST;
+		gbc_lblTotaleValore.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTotaleValore.gridx = 0;
+		gbc_lblTotaleValore.gridy = 1;
+		panelValore.add(lblTotaleValore, gbc_lblTotaleValore);
+		
+		textFieldTotaleValoreIndossato = new JTextField();
+		textFieldTotaleValoreIndossato.setEnabled(false);
+		textFieldTotaleValoreIndossato.setEditable(false);
+		textFieldTotaleValoreIndossato.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_textFieldTotaleValoreIndossato = new GridBagConstraints();
+		gbc_textFieldTotaleValoreIndossato.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTotaleValoreIndossato.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTotaleValoreIndossato.gridx = 1;
+		gbc_textFieldTotaleValoreIndossato.gridy = 1;
+		panelValore.add(textFieldTotaleValoreIndossato, gbc_textFieldTotaleValoreIndossato);
+		textFieldTotaleValoreIndossato.setColumns(10);
+		
+		textFieldTotaleValoreZaino = new JTextField();
+		textFieldTotaleValoreZaino.setEnabled(false);
+		textFieldTotaleValoreZaino.setEditable(false);
+		textFieldTotaleValoreZaino.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_textFieldTotaleValoreZaino = new GridBagConstraints();
+		gbc_textFieldTotaleValoreZaino.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTotaleValoreZaino.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTotaleValoreZaino.gridx = 2;
+		gbc_textFieldTotaleValoreZaino.gridy = 1;
+		panelValore.add(textFieldTotaleValoreZaino, gbc_textFieldTotaleValoreZaino);
+		textFieldTotaleValoreZaino.setColumns(10);
+		
+		textFieldTotaleValoreTascaDaCintura = new JTextField();
+		textFieldTotaleValoreTascaDaCintura.setEnabled(false);
+		textFieldTotaleValoreTascaDaCintura.setEditable(false);
+		textFieldTotaleValoreTascaDaCintura.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_textFieldTotaleValoreTascaDaCintura = new GridBagConstraints();
+		gbc_textFieldTotaleValoreTascaDaCintura.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTotaleValoreTascaDaCintura.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTotaleValoreTascaDaCintura.gridx = 3;
+		gbc_textFieldTotaleValoreTascaDaCintura.gridy = 1;
+		panelValore.add(textFieldTotaleValoreTascaDaCintura, gbc_textFieldTotaleValoreTascaDaCintura);
+		textFieldTotaleValoreTascaDaCintura.setColumns(10);
+		
+		textFieldTotaleValoreAltro = new JTextField();
+		textFieldTotaleValoreAltro.setEnabled(false);
+		textFieldTotaleValoreAltro.setEditable(false);
+		textFieldTotaleValoreAltro.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_textFieldTotaleValoreAltro = new GridBagConstraints();
+		gbc_textFieldTotaleValoreAltro.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldTotaleValoreAltro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTotaleValoreAltro.gridx = 4;
+		gbc_textFieldTotaleValoreAltro.gridy = 1;
+		panelValore.add(textFieldTotaleValoreAltro, gbc_textFieldTotaleValoreAltro);
+		textFieldTotaleValoreAltro.setColumns(10);
+		
+		lblTotaleValoreSul = new JLabel("Totale Valore sul Pg:");
+		GridBagConstraints gbc_lblTotaleValoreSul = new GridBagConstraints();
+		gbc_lblTotaleValoreSul.gridwidth = 2;
+		gbc_lblTotaleValoreSul.insets = new Insets(0, 0, 0, 5);
+		gbc_lblTotaleValoreSul.gridx = 0;
+		gbc_lblTotaleValoreSul.gridy = 2;
+		panelValore.add(lblTotaleValoreSul, gbc_lblTotaleValoreSul);
+		
+		textFieldTotaleValore = new JTextField();
+		textFieldTotaleValore.setEnabled(false);
+		textFieldTotaleValore.setEditable(false);
+		GridBagConstraints gbc_textFieldTotaleValore = new GridBagConstraints();
+		gbc_textFieldTotaleValore.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldTotaleValore.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTotaleValore.gridx = 2;
+		gbc_textFieldTotaleValore.gridy = 2;
+		panelValore.add(textFieldTotaleValore, gbc_textFieldTotaleValore);
+		textFieldTotaleValore.setColumns(10);
 
 	}
 
@@ -291,26 +430,46 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 
 		for (int i = 0; i < arrayPgEquip.size(); i++) {
 			PgEquipObj pgEquipObj = arrayPgEquip.get(i);
-			((DefaultTableModel) model).addRow(new Object[] { pgEquipObj.getNome(), pgEquipObj.getNumero(),
-					pgEquipObj.getPeso(), pgEquipObj.isIndossato(), pgEquipObj.isZaino(), pgEquipObj.isTascaDaCintura(),
-					pgEquipObj.isAltro(), pgEquipObj.getPrg() });
+			((DefaultTableModel) model).addRow(new Object[] {
+					pgEquipObj.getNome(), pgEquipObj.getPesoUnitario(),
+					pgEquipObj.getValoreUnitario(), pgEquipObj.getNumero(),
+					pgEquipObj.getPeso(), pgEquipObj.getValore(),
+					pgEquipObj.isIndossato(), pgEquipObj.isZaino(),
+					pgEquipObj.isTascaDaCintura(), pgEquipObj.isAltro(),
+					pgEquipObj.getPrg() });
 		}
 		if (tableEquip.getRowCount() > 0) {
 			if (rigaSelezionata == -1) {
 
 			} else {
 				if (tableEquip.getRowCount() > rigaSelezionata) {
-					tableEquip.setRowSelectionInterval(rigaSelezionata, rigaSelezionata);
+					tableEquip.setRowSelectionInterval(rigaSelezionata,
+							rigaSelezionata);
 				}
 			}
 		}
-		tableEquip.setPreferredScrollableViewportSize(tableEquip.getPreferredSize());
-		
-		textFieldTotalePesiIndossato.setText(pgDatiObj.getTotalePesiIndossato().toString());
-		textFieldTotalePesiZaino.setText(pgDatiObj.getTotalePesiZaino().toString());
-		textFieldTotalePesiTascaDaCintura.setText(pgDatiObj.getTotalePesiTascaDaCintura().toString());
-		textFieldTotalePesiAltro.setText(pgDatiObj.getTotalePesiAltro().toString());
+		tableEquip.setPreferredScrollableViewportSize(tableEquip
+				.getPreferredSize());
+
+		textFieldTotalePesiIndossato.setText(pgDatiObj.getTotalePesiIndossato()
+				.toString());
+		textFieldTotalePesiZaino.setText(pgDatiObj.getTotalePesiZaino()
+				.toString());
+		textFieldTotalePesiTascaDaCintura.setText(pgDatiObj
+				.getTotalePesiTascaDaCintura().toString());
+		textFieldTotalePesiAltro.setText(pgDatiObj.getTotalePesiAltro()
+				.toString());
 		textFieldTotalePesi.setText(pgDatiObj.getTotalePesi().toString());
+
+		textFieldTotaleValoreIndossato.setText(pgDatiObj.getTotaleValoreIndossato()
+				.toString());
+		textFieldTotaleValoreZaino.setText(pgDatiObj.getTotaleValoreZaino()
+				.toString());
+		textFieldTotaleValoreTascaDaCintura.setText(pgDatiObj
+				.getTotaleValoreTascaDaCintura().toString());
+		textFieldTotaleValoreAltro.setText(pgDatiObj.getTotaleValoreAltro()
+				.toString());
+		textFieldTotaleValore.setText(pgDatiObj.getTotaleValore().toString());
 
 	}
 
@@ -319,7 +478,8 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		ArrayList<PgEquipObj> arrayEquipOriginale = new ArrayList<PgEquipObj>();
 
 		// Recupero array bonus dal db
-		PgDatiObj pgDatiObjTemp = gestioneJsonPg.getPgByFileName(pgDatiObj.getFileName());
+		PgDatiObj pgDatiObjTemp = gestioneJsonPg.getPgByFileName(pgDatiObj
+				.getFileName());
 
 		arrayEquipOriginale = pgDatiObjTemp.getArrayEquip();
 		for (int i = 0; i < tableEquip.getRowCount(); i++) {
@@ -334,26 +494,48 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 			// dalla vista con il solo getValueAt() da un valore errato
 			PgEquipObj pgEquipObj = new PgEquipObj();
 			pgEquipObj.setNome(tableEquip.getValueAt(i, 0).toString());
-			pgEquipObj.setNumero(Integer.parseInt(tableEquip.getValueAt(i, 1).toString()));
-			pgEquipObj.setPeso(Double.parseDouble(tableEquip.getValueAt(i, 2).toString()));
-			pgEquipObj.setIndossato((boolean) tableEquip.getValueAt(i, 3));
-			pgEquipObj.setZaino((boolean) tableEquip.getValueAt(i, 4));
-			pgEquipObj.setTascaDaCintura((boolean) tableEquip.getValueAt(i, 5));
-			pgEquipObj.setAltro((boolean) tableEquip.getValueAt(i, 6));
-			pgEquipObj.setPrg(Integer.parseInt(tableEquip.getModel().getValueAt(i, 7).toString()));
+			pgEquipObj.setPesoUnitario(Double.parseDouble(tableEquip
+					.getValueAt(i, 1).toString()));
+			pgEquipObj.setValoreUnitario(Double.parseDouble(tableEquip
+					.getValueAt(i, 2).toString()));
+			pgEquipObj.setNumero(Integer.parseInt(tableEquip.getValueAt(i, 3)
+					.toString()));
+			pgEquipObj.setPeso(Double.parseDouble(tableEquip.getValueAt(i, 4)
+					.toString()));
+			pgEquipObj.setValore(Double.parseDouble(tableEquip.getValueAt(i, 5)
+					.toString()));
+			pgEquipObj.setIndossato((boolean) tableEquip.getValueAt(i, 6));
+			pgEquipObj.setZaino((boolean) tableEquip.getValueAt(i, 7));
+			pgEquipObj.setTascaDaCintura((boolean) tableEquip.getValueAt(i, 8));
+			pgEquipObj.setAltro((boolean) tableEquip.getValueAt(i, 9));
+			pgEquipObj.setPrg(Integer.parseInt(tableEquip.getModel()
+					.getValueAt(i, 10).toString()));
 
 			// Se trovo il progressivo della riga che stiamo leggendo nell'array
 			// del db e i dati sono variati attiviamo il flag
 			for (int i2 = 0; i2 < arrayEquipOriginale.size(); i2++) {
 				PgEquipObj pgEquipObjOriginale = arrayEquipOriginale.get(i2);
 				if (pgEquipObjOriginale.getPrg() == pgEquipObj.getPrg()) {
-					if (pgEquipObj.getNome().equals(pgEquipObjOriginale.getNome())
-							&& pgEquipObj.getNumero() == pgEquipObjOriginale.getNumero()
-							&& pgEquipObj.getPeso() == pgEquipObjOriginale.getPeso()
-							&& pgEquipObj.isIndossato() == pgEquipObjOriginale.isIndossato()
-							&& pgEquipObj.isZaino() == pgEquipObjOriginale.isZaino()
-							&& pgEquipObj.isTascaDaCintura() == pgEquipObjOriginale.isTascaDaCintura()
-							&& pgEquipObj.isAltro() == pgEquipObjOriginale.isAltro()) {
+					if (pgEquipObj.getNome().equals(
+							pgEquipObjOriginale.getNome())
+							&& pgEquipObj.getPesoUnitario() == pgEquipObjOriginale
+									.getPesoUnitario()
+							&& pgEquipObj.getValoreUnitario() == pgEquipObjOriginale
+									.getValoreUnitario()
+							&& pgEquipObj.getNumero() == pgEquipObjOriginale
+									.getNumero()
+							&& pgEquipObj.getPeso() == pgEquipObjOriginale
+									.getPeso()
+							&& pgEquipObj.getValore() == pgEquipObjOriginale
+									.getValore()
+							&& pgEquipObj.isIndossato() == pgEquipObjOriginale
+									.isIndossato()
+							&& pgEquipObj.isZaino() == pgEquipObjOriginale
+									.isZaino()
+							&& pgEquipObj.isTascaDaCintura() == pgEquipObjOriginale
+									.isTascaDaCintura()
+							&& pgEquipObj.isAltro() == pgEquipObjOriginale
+									.isAltro()) {
 
 					} else {
 						pgEquipObj.setDatiVariati(true);
@@ -376,13 +558,14 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 			pgEquipObj.setPrg(arrayEquip.get(ultimoRecord).getPrg() + 1);
 		}
 
-		GestionePgEquipObjDialog gestionePgEquipObjDialog = new GestionePgEquipObjDialog(ListaGestioneDati.INSERISCI,
-				pgDatiObj.getId(), pgEquipObj);
+		GestionePgEquipObjDialog gestionePgEquipObjDialog = new GestionePgEquipObjDialog(
+				ListaGestioneDati.INSERISCI, pgDatiObj.getId(), pgEquipObj);
 		gestionePgEquipObjDialog.setVisible(true);
 		if (gestionePgEquipObjDialog.isRigaGestita()) {
 			pgEquipObj = gestionePgEquipObjDialog.getPgEquipObj();
 			arrayEquip.add(pgEquipObj);
-			pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.ARRAY_EQUIP, arrayEquip);
+			pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
+					ListaPgDati.ARRAY_EQUIP, arrayEquip);
 		}
 		frame.popolaFrame(pgDatiObj);
 	}
@@ -393,17 +576,20 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 
 			ArrayList<PgEquipObj> arrayEquip = creaArrayEquip();
 
-			GestionePgEquipObjDialog gestionePgEquipObjDialog = new GestionePgEquipObjDialog(ListaGestioneDati.MODIFICA,
-					pgDatiObj.getId(), arrayEquip.get(tableEquip.getSelectedRow()));
+			GestionePgEquipObjDialog gestionePgEquipObjDialog = new GestionePgEquipObjDialog(
+					ListaGestioneDati.MODIFICA, pgDatiObj.getId(),
+					arrayEquip.get(tableEquip.getSelectedRow()));
 			gestionePgEquipObjDialog.setVisible(true);
 			if (gestionePgEquipObjDialog.isRigaGestita()) {
-				PgEquipObj pgEquipObj = gestionePgEquipObjDialog.getPgEquipObj();
+				PgEquipObj pgEquipObj = gestionePgEquipObjDialog
+						.getPgEquipObj();
 				for (int i = 0; i < arrayEquip.size(); i++) {
 					if (arrayEquip.get(i).getPrg() == pgEquipObj.getPrg()) {
 						arrayEquip.set(i, pgEquipObj);
 					}
 				}
-				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.ARRAY_EQUIP, arrayEquip);
+				pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
+						ListaPgDati.ARRAY_EQUIP, arrayEquip);
 			}
 			frame.popolaFrame(pgDatiObj);
 		}
@@ -413,13 +599,15 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 	private void cancellaRigaTableEquip() {
 
 		if (tableEquip.getSelectedRow() != -1) {
-			((DefaultTableModel) tableEquip.getModel()).removeRow(tableEquip.getSelectedRow());
+			((DefaultTableModel) tableEquip.getModel()).removeRow(tableEquip
+					.getSelectedRow());
 
 			if (tableEquip.getRowCount() > 0) {
 				tableEquip.setRowSelectionInterval(0, 0);
 			}
 			ArrayList<PgEquipObj> arrayEquip = creaArrayEquip();
-			pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj, ListaPgDati.ARRAY_EQUIP, arrayEquip);
+			pgDatiObj = aggiornaOggetti.aggiornaPgDatiObj(pgDatiObj,
+					ListaPgDati.ARRAY_EQUIP, arrayEquip);
 			pgDatiObj.setDatiCommittati(false);
 			frame.popolaFrame(pgDatiObj);
 
@@ -427,18 +615,23 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 	}
 
 	private void caricaDimensioniTableEquip(ArrayList<Integer> arrayDimensioni) {
-		if (arrayDimensioni.size() > 0 && tableEquip.getColumnCount() == arrayDimensioni.size()) {
+		if (arrayDimensioni.size() > 0
+				&& tableEquip.getColumnCount() == arrayDimensioni.size()) {
 			for (int i = 0; i < tableEquip.getColumnCount(); i++) {
-				tableEquip.getColumnModel().getColumn(i).setPreferredWidth(arrayDimensioni.get(i));
+				tableEquip.getColumnModel().getColumn(i)
+						.setPreferredWidth(arrayDimensioni.get(i));
 			}
 		} else {
-			 tableEquip.getColumnModel().getColumn(0).setPreferredWidth(350);
-			 tableEquip.getColumnModel().getColumn(1).setPreferredWidth(60);
-			 tableEquip.getColumnModel().getColumn(2).setPreferredWidth(60);
-			 tableEquip.getColumnModel().getColumn(3).setPreferredWidth(65);
-			 tableEquip.getColumnModel().getColumn(4).setPreferredWidth(45);
-			 tableEquip.getColumnModel().getColumn(5).setPreferredWidth(75);
-			 tableEquip.getColumnModel().getColumn(6).setPreferredWidth(45);
+			tableEquip.getColumnModel().getColumn(0).setPreferredWidth(350);
+			tableEquip.getColumnModel().getColumn(1).setPreferredWidth(75);
+			tableEquip.getColumnModel().getColumn(2).setPreferredWidth(90);
+			tableEquip.getColumnModel().getColumn(3).setPreferredWidth(60);
+			tableEquip.getColumnModel().getColumn(4).setPreferredWidth(60);
+			tableEquip.getColumnModel().getColumn(5).setPreferredWidth(75);
+			tableEquip.getColumnModel().getColumn(6).setPreferredWidth(65);
+			tableEquip.getColumnModel().getColumn(7).setPreferredWidth(45);
+			tableEquip.getColumnModel().getColumn(8).setPreferredWidth(75);
+			tableEquip.getColumnModel().getColumn(9).setPreferredWidth(45);
 
 		}
 	}
@@ -446,7 +639,8 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 	private void salvaDimensioniTableEquip() {
 		ArrayList<Integer> arrayDimensioni = new ArrayList<Integer>();
 		for (int i = 0; i < tableEquip.getColumnCount(); i++) {
-			arrayDimensioni.add(tableEquip.getColumnModel().getColumn(i).getWidth());
+			arrayDimensioni.add(tableEquip.getColumnModel().getColumn(i)
+					.getWidth());
 		}
 		opzioniObj = gestioneJsonOpzioni.getOpzioniObj();
 		opzioniObj.setDimensioniTablePgEquip(arrayDimensioni);
@@ -478,13 +672,16 @@ public class PgEquipPanel extends JPanel implements FocusListener, ActionListene
 		Object oggetto = e.getSource();
 
 		if (oggetto instanceof JButton) {
-			if (((JButton) oggetto).getActionCommand() == btnInserisciOggetto.getActionCommand()) {
+			if (((JButton) oggetto).getActionCommand() == btnInserisciOggetto
+					.getActionCommand()) {
 				inserisciOggetto();
 			}
-			if (((JButton) oggetto).getActionCommand() == btnCancellaRigaSelezionata.getActionCommand()) {
+			if (((JButton) oggetto).getActionCommand() == btnCancellaRigaSelezionata
+					.getActionCommand()) {
 				cancellaRigaTableEquip();
 			}
-			if (((JButton) oggetto).getActionCommand() == btnModificaOggetto.getActionCommand()) {
+			if (((JButton) oggetto).getActionCommand() == btnModificaOggetto
+					.getActionCommand()) {
 				modificaOggetto();
 			}
 

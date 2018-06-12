@@ -4,8 +4,11 @@ public class PgEquipObj {
 	boolean datiVariati = false;
 	int prg = 0;
 	String nome = "";
+	Double pesoUnitario = 0.00;
+	Double valoreUnitario = 0.00;
 	int numero = 0;
 	Double peso = 0.00;
+	Double valore = 0.00;
 	boolean indossato = false;
 	boolean zaino = false;
 	boolean tascaDaCintura = false;
@@ -28,6 +31,20 @@ public class PgEquipObj {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public Double getPesoUnitario() {
+		return pesoUnitario;
+	}
+	public void setPesoUnitario(Double pesoUnitario) {
+		this.pesoUnitario = pesoUnitario;
+	}
+	
+	public Double getValoreUnitario() {
+		return valoreUnitario;
+	}
+	public void setValoreUnitario(Double valoreUnitario) {
+		this.valoreUnitario = valoreUnitario;
+	}
 	public int getNumero() {
 		return numero;
 	}
@@ -39,6 +56,13 @@ public class PgEquipObj {
 	}
 	public void setPeso(Double peso) {
 		this.peso = peso;
+	}
+	
+	public Double getValore() {
+		return valore;
+	}
+	public void setValore(Double valore) {
+		this.valore = valore;
 	}
 	public boolean isIndossato() {
 		return indossato;

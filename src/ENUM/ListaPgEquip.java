@@ -2,8 +2,11 @@ package ENUM;
 
 public enum ListaPgEquip {
 	NOME,
+	PESO_UNITARIO,
+	VALORE_UNITARIO,
 	NUMERO,
 	PESO,
+	VALORE,
 	INDOSSATO,
 	ZAINO,
 	TRASPORTATO,
